@@ -1,5 +1,6 @@
 ﻿using API.DAL.Repositories.IRepository;
-using API.Domain.Models.DTO;
+using API.Domain.Models.DTOs.Product;
+using API.Mappers;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
@@ -14,22 +15,22 @@ namespace API.Controllers
         public ActionResult<ProductDTO> GetById([FromRoute] Guid id)
         {
             var product = _repository.GetById(id).Result;
-
-            if(product == null)
+            //Map
+            if (product == null)
                 return NotFound();
 
-            return Ok(product);
+            return Ok(product.ToProductDTO());
         }
 
         [HttpGet]
         public ActionResult<IEnumerable<ProductDTO>> GetAll()
         {
             var products = _repository.GetAll().Result;
-
-            if(products == null)
+            //Map
+            if (products == null)
                 return NotFound();
 
-            return Ok(products);
+            return Ok(products.Select(x => x.ToProductDTO()));
         }
     }
 }

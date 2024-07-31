@@ -1,4 +1,4 @@
-﻿namespace API.Domain.Models.DTO
+﻿namespace API.Domain.Models.DTOs.Product
 {
     public class ProductDTO : BaseModelDTO
     {
