@@ -57,10 +57,16 @@ namespace API.DAL.Repositories
             await SaveAsync();
         }
 
-        public async Task DeleteAsync(Guid id)
+        public async Task<T?> DeleteAsync(Guid id)
         {
-            await dbSet.Where(x => x.Id == id).ExecuteDeleteAsync();
+            var entity = await dbSet.FirstOrDefaultAsync(x => x.Id == id);
+
+            if (entity == null)
+                return null;
+
+            dbSet.Remove(entity);
             await SaveAsync();
+            return entity;
         }
 
         public async Task SaveAsync()
