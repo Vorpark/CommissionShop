@@ -18,5 +18,18 @@ namespace API.Mappers
                 ImageUrl = product.ImageUrl
             };
         }
+
+        public static Product ToProductFromCreaterDTO(this CreateProductRequestDTO productDTO)
+        {
+            return new Product()
+            {
+                Name = productDTO.Name,
+                Price = productDTO.Price,
+                City = productDTO.City,
+                Description = productDTO.Description,
+                ImageUrl = productDTO.ImageUrl,
+                SubCategoryId = productDTO.SubCategoryId
+            };
+        }
     }
 }

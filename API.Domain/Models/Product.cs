@@ -16,7 +16,7 @@ namespace API.Domain.Models
         public Guid SubCategoryId { get; set; }
         public SubCategory? SubCategory { get; set; }
 
-        public OrderDetails? Details { get; set; }
+        public OrderDetails? OrderDetails { get; set; }
 
         public ICollection<Cart> Carts { get; set; } = [];
     }

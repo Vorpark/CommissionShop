@@ -30,7 +30,7 @@ namespace API.DAL.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Carts");
+                    b.ToTable("Carts", (string)null);
                 });
 
             modelBuilder.Entity("API.Domain.Models.Category", b =>
@@ -53,7 +53,7 @@ namespace API.DAL.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Categories");
+                    b.ToTable("Categories", (string)null);
 
                     b.HasData(
                         new
@@ -105,7 +105,7 @@ namespace API.DAL.Migrations
                     b.HasIndex("CartId")
                         .IsUnique();
 
-                    b.ToTable("Customers");
+                    b.ToTable("Customers", (string)null);
                 });
 
             modelBuilder.Entity("API.Domain.Models.Order", b =>
@@ -124,7 +124,7 @@ namespace API.DAL.Migrations
 
                     b.HasIndex("CustomerId");
 
-                    b.ToTable("Orders");
+                    b.ToTable("Orders", (string)null);
                 });
 
             modelBuilder.Entity("API.Domain.Models.OrderDetails", b =>
@@ -149,7 +149,7 @@ namespace API.DAL.Migrations
                     b.HasIndex("ProductId")
                         .IsUnique();
 
-                    b.ToTable("OrderDetails");
+                    b.ToTable("OrderDetails", (string)null);
                 });
 
             modelBuilder.Entity("API.Domain.Models.Product", b =>
@@ -190,7 +190,7 @@ namespace API.DAL.Migrations
 
                     b.HasIndex("SubCategoryId");
 
-                    b.ToTable("Products");
+                    b.ToTable("Products", (string)null);
 
                     b.HasData(
                         new
@@ -232,7 +232,7 @@ namespace API.DAL.Migrations
 
                     b.HasIndex("CategoryId");
 
-                    b.ToTable("SubCategories");
+                    b.ToTable("SubCategories", (string)null);
 
                     b.HasData(
                         new
@@ -257,7 +257,7 @@ namespace API.DAL.Migrations
 
                     b.HasIndex("ProductsId");
 
-                    b.ToTable("CartProduct");
+                    b.ToTable("CartProduct", (string)null);
                 });
 
             modelBuilder.Entity("API.Domain.Models.Customer", b =>

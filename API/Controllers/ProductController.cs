@@ -32,5 +32,14 @@ namespace API.Controllers
 
             return Ok(products.Select(x => x.ToProductDTO()));
         }
+
+        [HttpPost]
+        public IActionResult Create([FromBody] CreateProductRequestDTO productDTO) 
+        {
+            var product = productDTO.ToProductFromCreaterDTO();
+            _repository.Add(product);
+
+            return CreatedAtAction(nameof(GetById), new { id = product.Id}, product.ToProductDTO());
+        }
     }
 }
