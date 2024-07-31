@@ -18,7 +18,7 @@ namespace API.DAL.Repositories
             dbSet = _db.Set<T>();
         }
 
-        public async Task<T?> GetById(Guid id, string? includeProperties = null)
+        public async Task<T?> GetByIdAsync(Guid id, string? includeProperties = null)
         {
             IQueryable<T> query = dbSet.AsNoTracking();
             if (!string.IsNullOrEmpty(includeProperties))
@@ -32,7 +32,7 @@ namespace API.DAL.Repositories
             return await query.FirstOrDefaultAsync(x => x.Id == id);
         }
 
-        public async Task<T?> GetByFilter(Expression<Func<T, bool>> filter, string? includeProperties = null)
+        public async Task<T?> GetByFilterAsync(Expression<Func<T, bool>> filter, string? includeProperties = null)
         {
             IQueryable<T> query = dbSet.AsNoTracking();
             if (!string.IsNullOrEmpty(includeProperties))
@@ -46,24 +46,24 @@ namespace API.DAL.Repositories
             return await query.Where(filter).FirstOrDefaultAsync();
         }
 
-        public async Task<IEnumerable<T>> GetAll()
+        public async Task<IEnumerable<T>> GetAllAsync()
         {
             return await dbSet.AsNoTracking().ToListAsync();
         }
 
-        public async Task Add(T entity)
+        public async Task AddAsync(T entity)
         {
             await dbSet.AddAsync(entity);
-            await Save();
+            await SaveAsync();
         }
 
-        public async Task Delete(Guid id)
+        public async Task DeleteAsync(Guid id)
         {
             await dbSet.Where(x => x.Id == id).ExecuteDeleteAsync();
-            await Save();
+            await SaveAsync();
         }
 
-        public async Task Save()
+        public async Task SaveAsync()
         {
             await _db.SaveChangesAsync();
         }

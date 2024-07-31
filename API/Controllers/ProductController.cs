@@ -12,10 +12,10 @@ namespace API.Controllers
         private readonly IProductRepository _repository = repository;
 
         [HttpGet("{id:guid}")]
-        public ActionResult<ProductDTO> GetById([FromRoute] Guid id)
+        public async Task<ActionResult> GetById([FromRoute] Guid id)
         {
-            var product = _repository.GetById(id).Result;
-            //Map
+            var product = await _repository.GetByIdAsync(id);
+
             if (product == null)
                 return NotFound();
 
@@ -23,10 +23,10 @@ namespace API.Controllers
         }
 
         [HttpGet]
-        public ActionResult<IEnumerable<ProductDTO>> GetAll()
+        public async Task<ActionResult> GetAll()
         {
-            var products = _repository.GetAll().Result;
-            //Map
+            var products = await _repository.GetAllAsync();
+
             if (products == null)
                 return NotFound();
 
@@ -34,12 +34,29 @@ namespace API.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create([FromBody] CreateProductRequestDTO productDTO) 
+        public async Task<IActionResult> Create([FromBody] CreateProductRequestDTO productDTO) 
         {
-            var product = productDTO.ToProductFromCreaterDTO();
-            _repository.Add(product);
+            if (productDTO == null)
+                return BadRequest(productDTO);
+
+            var product = productDTO.ToProductFromCreateDTO();
+            await _repository.AddAsync(product);
 
             return CreatedAtAction(nameof(GetById), new { id = product.Id}, product.ToProductDTO());
+        }
+
+        [HttpPut("{id:guid}")]
+        public async Task<IActionResult> Update([FromRoute] Guid id, [FromBody] UpdateProductRequestDTO productDTO)
+        {
+            if (productDTO == null)
+                return BadRequest(productDTO);
+
+            var product = await _repository.UpdateAsync(id, productDTO);
+
+            if (product == null)
+                return NotFound();
+
+            return Ok(product.ToProductDTO());
         }
     }
 }

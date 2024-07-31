@@ -4,13 +4,9 @@ using API.Domain.Models;
 
 namespace API.DAL.Repositories
 {
-    public class CustomerRepository : BaseRepository<Customer>, ICustomerRepository
+    public class CustomerRepository(ApplicationDbContext db) : BaseRepository<Customer>(db), ICustomerRepository
     {
-        private readonly ApplicationDbContext _db;
-        public CustomerRepository(ApplicationDbContext db) : base(db)
-        {
-            _db = db;
-        }
+        private readonly ApplicationDbContext _db = db;
 
         //TODO: Update
     }

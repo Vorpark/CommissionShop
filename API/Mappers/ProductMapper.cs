@@ -15,11 +15,12 @@ namespace API.Mappers
                 IsSold = product.IsSold,
                 City = product.City,
                 Description = product.Description,
-                ImageUrl = product.ImageUrl
+                ImageUrl = product.ImageUrl,
+                SubCategoryId = product.SubCategoryId
             };
         }
 
-        public static Product ToProductFromCreaterDTO(this CreateProductRequestDTO productDTO)
+        public static Product ToProductFromCreateDTO(this CreateProductRequestDTO productDTO)
         {
             return new Product()
             {
