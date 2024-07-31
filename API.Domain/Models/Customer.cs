@@ -13,7 +13,7 @@ namespace API.Domain.Models
         public string Country { get; set; } = string.Empty;
 
 
-        public int CartId { get; set; }
+        public Guid CartId { get; set; }
         public Cart? Cart { get; set; }
     }
 }

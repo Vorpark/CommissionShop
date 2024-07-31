@@ -12,7 +12,7 @@ namespace API.Domain.Models
         public string Description { get; set; } = string.Empty;
         public string ImageUrl { get; set; } = string.Empty;
 
-        public int SubCategoryId { get; set; }
+        public Guid SubCategoryId { get; set; }
         public SubCategory? SubCategory { get; set; }
 
         public OrderDetails? Details { get; set; }
