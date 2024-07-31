@@ -2,7 +2,7 @@
 {
     public class Order : BaseModel
     {
-        public DateTime OrderDate { get; set; }
+        public DateTime CreatedDate { get; set; } = DateTime.Now;
 
         public Guid CustomerId { get; set; }
         public Customer? Customer { get; set; }

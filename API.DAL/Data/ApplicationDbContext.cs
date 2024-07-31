@@ -20,6 +20,21 @@ namespace API.DAL.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+
+            Guid categoryId = Guid.NewGuid();
+            Guid subCategoryId = Guid.NewGuid();
+            modelBuilder.Entity<Category>().HasData(
+                new Category() { Id = categoryId }
+            );
+
+            modelBuilder.Entity<SubCategory>().HasData(
+                new SubCategory() { Id = subCategoryId, CategoryId = categoryId }    
+            );
+
+            modelBuilder.Entity<Product>().HasData(
+                new Product() { Id = Guid.NewGuid(), Name = "123", Price = 12455.01M, Description = "WTF", SubCategoryId = subCategoryId }
+            );
+
         }
     }
 }

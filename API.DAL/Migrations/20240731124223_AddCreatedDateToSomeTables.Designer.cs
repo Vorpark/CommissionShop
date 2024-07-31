@@ -4,6 +4,7 @@ using API.DAL.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace API.DAL.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240731124223_AddCreatedDateToSomeTables")]
+    partial class AddCreatedDateToSomeTables
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -54,15 +57,6 @@ namespace API.DAL.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Categories");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("83b2010f-0410-4005-8837-b85de9dbb2be"),
-                            ImageUrl = "",
-                            Name = "",
-                            TranslitName = ""
-                        });
                 });
 
             modelBuilder.Entity("API.Domain.Models.Customer", b =>
@@ -191,20 +185,6 @@ namespace API.DAL.Migrations
                     b.HasIndex("SubCategoryId");
 
                     b.ToTable("Products");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("bb9ba571-369a-485c-9559-c16c75a87e78"),
-                            City = "",
-                            CreatedDate = new DateTime(2024, 7, 31, 16, 21, 54, 810, DateTimeKind.Local).AddTicks(289),
-                            Description = "WTF",
-                            ImageUrl = "",
-                            IsSold = false,
-                            Name = "123",
-                            Price = 12455.01m,
-                            SubCategoryId = new Guid("2cc2d055-757f-418f-badc-68d048157087")
-                        });
                 });
 
             modelBuilder.Entity("API.Domain.Models.SubCategory", b =>
@@ -233,16 +213,6 @@ namespace API.DAL.Migrations
                     b.HasIndex("CategoryId");
 
                     b.ToTable("SubCategories");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("2cc2d055-757f-418f-badc-68d048157087"),
-                            CategoryId = new Guid("83b2010f-0410-4005-8837-b85de9dbb2be"),
-                            ImageUrl = "",
-                            Name = "",
-                            TranslitName = ""
-                        });
                 });
 
             modelBuilder.Entity("CartProduct", b =>

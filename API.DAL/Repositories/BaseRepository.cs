@@ -18,6 +18,20 @@ namespace API.DAL.Repositories
             dbSet = _db.Set<T>();
         }
 
+        public async Task<T?> GetById(Guid id, string? includeProperties = null)
+        {
+            IQueryable<T> query = dbSet.AsNoTracking();
+            if (!string.IsNullOrEmpty(includeProperties))
+            {
+                foreach (var includeProp in includeProperties
+                    .Split([','], StringSplitOptions.RemoveEmptyEntries))
+                {
+                    query = query.Include(includeProp);
+                }
+            }
+            return await query.FirstOrDefaultAsync(x => x.Id == id);
+        }
+
         public async Task<T?> GetByFilter(Expression<Func<T, bool>> filter, string? includeProperties = null)
         {
             IQueryable<T> query = dbSet.AsNoTracking();
@@ -32,18 +46,9 @@ namespace API.DAL.Repositories
             return await query.Where(filter).FirstOrDefaultAsync();
         }
 
-        public async Task<T?> GetById(Guid id, string? includeProperties = null)
+        public async Task<IEnumerable<T>> GetAll()
         {
-            IQueryable<T> query = dbSet.AsNoTracking();
-            if (!string.IsNullOrEmpty(includeProperties))
-            {
-                foreach (var includeProp in includeProperties
-                    .Split([','], StringSplitOptions.RemoveEmptyEntries))
-                {
-                    query = query.Include(includeProp);
-                }
-            }
-            return await query.FirstOrDefaultAsync(x => x.Id == id);
+            return await dbSet.AsNoTracking().ToListAsync();
         }
 
         public async Task Add(T entity)

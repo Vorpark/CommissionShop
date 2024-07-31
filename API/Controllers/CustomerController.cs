@@ -1,15 +1,12 @@
-﻿using API.DAL.Data;
-using API.Domain.Models;
+﻿using API.DAL.Repositories.IRepository;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace API.Controllers
 {
     [Route("api/customer")]
     [ApiController]
-    public class CustomerController : ControllerBase
+    public class CustomerController(ICustomerRepository repository) : ControllerBase
     {
-        private readonly DbSet<Customer> _context;
-        public CustomerController(ApplicationDbContext context) => _context = context.Customers;
+        private readonly ICustomerRepository _repository = repository;
     }
 }

@@ -11,6 +11,7 @@ namespace API.Domain.Models
         public decimal PhoneNumber { get; set; } = 0;
         public string City { get; set; } = string.Empty;
         public string Country { get; set; } = string.Empty;
+        public DateTime CreatedDate { get; set; } = DateTime.Now;
 
 
         public Guid CartId { get; set; }

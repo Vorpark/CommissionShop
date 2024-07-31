@@ -11,6 +11,7 @@ namespace API.Domain.Models
         public string City { get; set; } = string.Empty;
         public string Description { get; set; } = string.Empty;
         public string ImageUrl { get; set; } = string.Empty;
+        public DateTime CreatedDate { get; set; } = DateTime.Now;
 
         public Guid SubCategoryId { get; set; }
         public SubCategory? SubCategory { get; set; }

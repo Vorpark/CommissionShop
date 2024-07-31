@@ -1,15 +1,35 @@
-﻿using API.DAL.Data;
-using API.Domain.Models;
+﻿using API.DAL.Repositories.IRepository;
+using API.Domain.Models.DTO;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace API.Controllers
 {
     [Route("api/product")]
     [ApiController]
-    public class ProductController : ControllerBase
+    public class ProductController(IProductRepository repository) : ControllerBase
     {
-        private readonly DbSet<Product> _context;
-        public ProductController(ApplicationDbContext context) => _context = context.Products;
+        private readonly IProductRepository _repository = repository;
+
+        [HttpGet("{id:guid}")]
+        public ActionResult<ProductDTO> GetById([FromRoute] Guid id)
+        {
+            var product = _repository.GetById(id).Result;
+
+            if(product == null)
+                return NotFound();
+
+            return Ok(product);
+        }
+
+        [HttpGet]
+        public ActionResult<IEnumerable<ProductDTO>> GetAll()
+        {
+            var products = _repository.GetAll().Result;
+
+            if(products == null)
+                return NotFound();
+
+            return Ok(products);
+        }
     }
 }
