@@ -10,6 +10,7 @@ namespace API.DAL.Repositories.IRepository
         Task<IEnumerable<T>> GetAllAsync();
         Task AddAsync(T entity);
         Task<T?> DeleteAsync(Guid id);
+        Task<bool> Exists(Guid id);
         Task SaveAsync();
     }
 }

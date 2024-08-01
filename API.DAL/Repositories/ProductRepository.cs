@@ -8,8 +8,6 @@ namespace API.DAL.Repositories
 {
     public class ProductRepository(ApplicationDbContext db) : BaseRepository<Product>(db), IProductRepository
     {
-        private readonly ApplicationDbContext _db = db;
-
         public async Task<Product?> UpdateAsync(Guid id, UpdateProductRequestDTO productDTO)
         {
             var existingProduct = await dbSet.FirstOrDefaultAsync(x => x.Id == id);

@@ -10,7 +10,7 @@ namespace API.DAL.Repositories
         where T : BaseModel
     {
         private readonly ApplicationDbContext _db;
-        internal DbSet<T> dbSet;
+        protected readonly DbSet<T> dbSet;
 
         public BaseRepository(ApplicationDbContext db)
         {
@@ -66,7 +66,13 @@ namespace API.DAL.Repositories
 
             dbSet.Remove(entity);
             await SaveAsync();
+
             return entity;
+        }
+
+        public async Task<bool> Exists(Guid id)
+        {
+            return await dbSet.AnyAsync(x => x.Id == id);
         }
 
         public async Task SaveAsync()
