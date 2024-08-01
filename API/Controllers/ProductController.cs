@@ -19,7 +19,9 @@ namespace API.Controllers
             if (product == null)
                 return NotFound();
 
-            return Ok(product.ToProductDTO());
+            var productDTO = product.ToProductDTO();
+
+            return Ok(productDTO);
         }
 
         [HttpGet]
@@ -30,7 +32,9 @@ namespace API.Controllers
             if (products == null)
                 return NotFound();
 
-            return Ok(products.Select(x => x.ToProductDTO()));
+            var productDTOs = products.Select(x => x.ToProductDTO());
+
+            return Ok(productDTOs);
         }
 
         [HttpPost]
@@ -42,7 +46,9 @@ namespace API.Controllers
             var product = productDTO.ToProductFromCreateDTO();
             await _repository.AddAsync(product);
 
-            return CreatedAtAction(nameof(GetById), new { id = product.Id}, product.ToProductDTO());
+            var createdProductDTO = product.ToProductDTO();
+
+            return CreatedAtAction(nameof(GetById), new { id = product.Id}, createdProductDTO);
         }
 
         [HttpPut("{id:guid}")]
@@ -56,7 +62,9 @@ namespace API.Controllers
             if (product == null)
                 return NotFound();
 
-            return Ok(product.ToProductDTO());
+            var updatedProductDTO = product.ToProductDTO();
+
+            return Ok(updatedProductDTO);
         }
 
         [HttpDelete("{id:guid}")]
