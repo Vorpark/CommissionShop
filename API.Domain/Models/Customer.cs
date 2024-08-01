@@ -2,6 +2,7 @@
 
 namespace API.Domain.Models
 {
+    [Table("Customers")]
     public class Customer : BaseModel
     {
         public string FirstName { get; set; } = string.Empty;

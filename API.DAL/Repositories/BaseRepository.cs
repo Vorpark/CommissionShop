@@ -59,7 +59,7 @@ namespace API.DAL.Repositories
 
         public async Task<T?> DeleteAsync(Guid id)
         {
-            var entity = await dbSet.FirstOrDefaultAsync(x => x.Id == id);
+            var entity = await dbSet.AsNoTracking().FirstOrDefaultAsync(x => x.Id == id);
 
             if (entity == null)
                 return null;

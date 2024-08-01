@@ -2,6 +2,7 @@
 
 namespace API.Domain.Models
 {
+    [Table("OrderDetails")]
     public class OrderDetails : BaseModel
     {
         [Column(TypeName = "decimal(5,2)")]

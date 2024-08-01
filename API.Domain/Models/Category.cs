@@ -1,5 +1,8 @@
-﻿namespace API.Domain.Models
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace API.Domain.Models
 {
+    [Table("Categories")]
     public class Category : BaseModel
     {
         public string Name { get; set; } = string.Empty;

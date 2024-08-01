@@ -1,5 +1,8 @@
-﻿namespace API.Domain.Models
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace API.Domain.Models
 {
+    [Table("Orders")]
     public class Order : BaseModel
     {
         public DateTime CreatedDate { get; set; } = DateTime.Now;
