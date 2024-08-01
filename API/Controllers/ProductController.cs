@@ -40,7 +40,7 @@ namespace API.Controllers
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] CreateProductRequestDTO productDTO) 
         {
-            if (productDTO == null)
+            if (!ModelState.IsValid)
                 return BadRequest(productDTO);
 
             var product = productDTO.ToProductFromCreateDTO();
@@ -54,7 +54,7 @@ namespace API.Controllers
         [HttpPut("{id:guid}")]
         public async Task<IActionResult> Update([FromRoute] Guid id, [FromBody] UpdateProductRequestDTO productDTO)
         {
-            if (productDTO == null)
+            if (!ModelState.IsValid)
                 return BadRequest(productDTO);
 
             var product = await _repository.UpdateAsync(id, productDTO);
