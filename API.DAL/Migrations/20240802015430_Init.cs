@@ -47,6 +47,7 @@ namespace API.DAL.Migrations
                     PhoneNumber = table.Column<decimal>(type: "decimal(18,0)", nullable: false),
                     City = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Country = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     CartId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
@@ -86,7 +87,7 @@ namespace API.DAL.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    OrderDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     CustomerId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
@@ -107,10 +108,15 @@ namespace API.DAL.Migrations
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    Discount = table.Column<decimal>(type: "decimal(5,2)", nullable: false),
+                    HasDiscount = table.Column<bool>(type: "bit", nullable: false),
                     IsSold = table.Column<bool>(type: "bit", nullable: false),
                     City = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Brand = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ImageUrl = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    CategoryId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     SubCategoryId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
@@ -153,7 +159,6 @@ namespace API.DAL.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Discount = table.Column<decimal>(type: "decimal(5,2)", nullable: false),
                     OrderId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     ProductId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
@@ -173,6 +178,21 @@ namespace API.DAL.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
+
+            migrationBuilder.InsertData(
+                table: "Categories",
+                columns: new[] { "Id", "ImageUrl", "Name", "TranslitName" },
+                values: new object[] { new Guid("a419177e-0b69-4974-b0bb-63bc86f601ae"), "", "", "" });
+
+            migrationBuilder.InsertData(
+                table: "SubCategories",
+                columns: new[] { "Id", "CategoryId", "ImageUrl", "Name", "TranslitName" },
+                values: new object[] { new Guid("1b97a0b9-438e-41f3-b7d3-662ab8f3f884"), new Guid("a419177e-0b69-4974-b0bb-63bc86f601ae"), "", "", "" });
+
+            migrationBuilder.InsertData(
+                table: "Products",
+                columns: new[] { "Id", "Brand", "CategoryId", "City", "CreatedDate", "Description", "Discount", "HasDiscount", "ImageUrl", "IsSold", "Name", "Price", "SubCategoryId" },
+                values: new object[] { new Guid("efaef2ee-2925-4272-99dc-d26bcd846ff9"), "", new Guid("a419177e-0b69-4974-b0bb-63bc86f601ae"), "", new DateTime(2024, 8, 2, 4, 54, 29, 750, DateTimeKind.Local).AddTicks(6476), "WTF", 0m, false, "", false, "123", 12455.01m, new Guid("1b97a0b9-438e-41f3-b7d3-662ab8f3f884") });
 
             migrationBuilder.CreateIndex(
                 name: "IX_CartProduct_ProductsId",

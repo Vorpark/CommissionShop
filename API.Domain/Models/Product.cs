@@ -8,12 +8,17 @@ namespace API.Domain.Models
         public string Name { get; set; } = string.Empty;
         [Column(TypeName = "decimal(18,2)")]
         public decimal Price { get; set; } = 0;
+        [Column(TypeName = "decimal(5,2)")]
+        public decimal Discount { get; set; } = 0;
+        public bool HasDiscount { get; set; } = false;
         public bool IsSold { get; set; } = false;
         public string City { get; set; } = string.Empty;
+        public string Brand {  get; set; } = string.Empty;
         public string Description { get; set; } = string.Empty;
         public string ImageUrl { get; set; } = string.Empty;
         public DateTime CreatedDate { get; set; } = DateTime.Now;
 
+        public Guid CategoryId { get; set; }
         public Guid SubCategoryId { get; set; }
         public SubCategory? SubCategory { get; set; }
 

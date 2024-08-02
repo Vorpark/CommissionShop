@@ -30,7 +30,7 @@ namespace API.DAL.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Carts", (string)null);
+                    b.ToTable("Carts");
                 });
 
             modelBuilder.Entity("API.Domain.Models.Category", b =>
@@ -53,12 +53,12 @@ namespace API.DAL.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Categories", (string)null);
+                    b.ToTable("Categories");
 
                     b.HasData(
                         new
                         {
-                            Id = new Guid("83b2010f-0410-4005-8837-b85de9dbb2be"),
+                            Id = new Guid("a419177e-0b69-4974-b0bb-63bc86f601ae"),
                             ImageUrl = "",
                             Name = "",
                             TranslitName = ""
@@ -105,7 +105,7 @@ namespace API.DAL.Migrations
                     b.HasIndex("CartId")
                         .IsUnique();
 
-                    b.ToTable("Customers", (string)null);
+                    b.ToTable("Customers");
                 });
 
             modelBuilder.Entity("API.Domain.Models.Order", b =>
@@ -124,7 +124,7 @@ namespace API.DAL.Migrations
 
                     b.HasIndex("CustomerId");
 
-                    b.ToTable("Orders", (string)null);
+                    b.ToTable("Orders");
                 });
 
             modelBuilder.Entity("API.Domain.Models.OrderDetails", b =>
@@ -132,9 +132,6 @@ namespace API.DAL.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
-
-                    b.Property<decimal>("Discount")
-                        .HasColumnType("decimal(5,2)");
 
                     b.Property<Guid>("OrderId")
                         .HasColumnType("uniqueidentifier");
@@ -149,13 +146,20 @@ namespace API.DAL.Migrations
                     b.HasIndex("ProductId")
                         .IsUnique();
 
-                    b.ToTable("OrderDetails", (string)null);
+                    b.ToTable("OrderDetails");
                 });
 
             modelBuilder.Entity("API.Domain.Models.Product", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Brand")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("CategoryId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("City")
@@ -168,6 +172,12 @@ namespace API.DAL.Migrations
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("Discount")
+                        .HasColumnType("decimal(5,2)");
+
+                    b.Property<bool>("HasDiscount")
+                        .HasColumnType("bit");
 
                     b.Property<string>("ImageUrl")
                         .IsRequired()
@@ -190,20 +200,24 @@ namespace API.DAL.Migrations
 
                     b.HasIndex("SubCategoryId");
 
-                    b.ToTable("Products", (string)null);
+                    b.ToTable("Products");
 
                     b.HasData(
                         new
                         {
-                            Id = new Guid("bb9ba571-369a-485c-9559-c16c75a87e78"),
+                            Id = new Guid("efaef2ee-2925-4272-99dc-d26bcd846ff9"),
+                            Brand = "",
+                            CategoryId = new Guid("a419177e-0b69-4974-b0bb-63bc86f601ae"),
                             City = "",
-                            CreatedDate = new DateTime(2024, 7, 31, 16, 21, 54, 810, DateTimeKind.Local).AddTicks(289),
+                            CreatedDate = new DateTime(2024, 8, 2, 4, 54, 29, 750, DateTimeKind.Local).AddTicks(6476),
                             Description = "WTF",
+                            Discount = 0m,
+                            HasDiscount = false,
                             ImageUrl = "",
                             IsSold = false,
                             Name = "123",
                             Price = 12455.01m,
-                            SubCategoryId = new Guid("2cc2d055-757f-418f-badc-68d048157087")
+                            SubCategoryId = new Guid("1b97a0b9-438e-41f3-b7d3-662ab8f3f884")
                         });
                 });
 
@@ -232,13 +246,13 @@ namespace API.DAL.Migrations
 
                     b.HasIndex("CategoryId");
 
-                    b.ToTable("SubCategories", (string)null);
+                    b.ToTable("SubCategories");
 
                     b.HasData(
                         new
                         {
-                            Id = new Guid("2cc2d055-757f-418f-badc-68d048157087"),
-                            CategoryId = new Guid("83b2010f-0410-4005-8837-b85de9dbb2be"),
+                            Id = new Guid("1b97a0b9-438e-41f3-b7d3-662ab8f3f884"),
+                            CategoryId = new Guid("a419177e-0b69-4974-b0bb-63bc86f601ae"),
                             ImageUrl = "",
                             Name = "",
                             TranslitName = ""
@@ -257,7 +271,7 @@ namespace API.DAL.Migrations
 
                     b.HasIndex("ProductsId");
 
-                    b.ToTable("CartProduct", (string)null);
+                    b.ToTable("CartProduct");
                 });
 
             modelBuilder.Entity("API.Domain.Models.Customer", b =>
@@ -291,7 +305,7 @@ namespace API.DAL.Migrations
                         .IsRequired();
 
                     b.HasOne("API.Domain.Models.Product", "Product")
-                        .WithOne("Details")
+                        .WithOne("OrderDetails")
                         .HasForeignKey("API.Domain.Models.OrderDetails", "ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -355,7 +369,7 @@ namespace API.DAL.Migrations
 
             modelBuilder.Entity("API.Domain.Models.Product", b =>
                 {
-                    b.Navigation("Details");
+                    b.Navigation("OrderDetails");
                 });
 
             modelBuilder.Entity("API.Domain.Models.SubCategory", b =>

@@ -32,7 +32,10 @@ namespace API.DAL.Repositories
         {
             var products = dbSet.AsNoTracking().AsQueryable();
 
-            //TODO: Фильтрация по категории, подкатегории
+            if (query.CategoryId != null)
+                products.Where(x => x.CategoryId ==  query.CategoryId);
+            else if (query.SubCategoryId != null)
+                products.Where(x => x.SubCategoryId == query.SubCategoryId);
 
             if (query.MinPrice != null)
                 products = products.Where(x => x.Price >= query.MinPrice);
@@ -41,10 +44,10 @@ namespace API.DAL.Repositories
                 products = products.Where(x => x.Price <= query.MaxPrice);
 
             if (query.HasDiscount != false)
-                return null; //TODO: Discount
+                products = products.Where(x => x.HasDiscount == true);
 
             if (query.Brand != null)
-                return null; //TODO: Brand
+                products = products.Where(x => x.Brand.Contains(query.Brand));
 
             if (query.SortBy != null)
             {

@@ -28,11 +28,11 @@ namespace API.DAL.Data
             );
 
             modelBuilder.Entity<SubCategory>().HasData(
-                new SubCategory() { Id = subCategoryId, CategoryId = categoryId }    
+                new SubCategory() { Id = subCategoryId, CategoryId = categoryId }
             );
 
             modelBuilder.Entity<Product>().HasData(
-                new Product() { Id = Guid.NewGuid(), Name = "123", Price = 12455.01M, Description = "WTF", SubCategoryId = subCategoryId }
+                new Product() { Id = Guid.NewGuid(), Name = "123", Price = 12455.01M, Description = "WTF", CategoryId = categoryId, SubCategoryId = subCategoryId }
             );
 
         }

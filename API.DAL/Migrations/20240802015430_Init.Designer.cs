@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace API.DAL.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240731001816_Init")]
+    [Migration("20240802015430_Init")]
     partial class Init
     {
         /// <inheritdoc />
@@ -57,6 +57,15 @@ namespace API.DAL.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Categories");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("a419177e-0b69-4974-b0bb-63bc86f601ae"),
+                            ImageUrl = "",
+                            Name = "",
+                            TranslitName = ""
+                        });
                 });
 
             modelBuilder.Entity("API.Domain.Models.Customer", b =>
@@ -75,6 +84,9 @@ namespace API.DAL.Migrations
                     b.Property<string>("Country")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Email")
                         .IsRequired()
@@ -105,11 +117,11 @@ namespace API.DAL.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
                     b.Property<Guid>("CustomerId")
                         .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("OrderDate")
-                        .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
@@ -123,9 +135,6 @@ namespace API.DAL.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
-
-                    b.Property<decimal>("Discount")
-                        .HasColumnType("decimal(5,2)");
 
                     b.Property<Guid>("OrderId")
                         .HasColumnType("uniqueidentifier");
@@ -149,13 +158,29 @@ namespace API.DAL.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<string>("Brand")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("CategoryId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<string>("City")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("Discount")
+                        .HasColumnType("decimal(5,2)");
+
+                    b.Property<bool>("HasDiscount")
+                        .HasColumnType("bit");
 
                     b.Property<string>("ImageUrl")
                         .IsRequired()
@@ -179,6 +204,24 @@ namespace API.DAL.Migrations
                     b.HasIndex("SubCategoryId");
 
                     b.ToTable("Products");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("efaef2ee-2925-4272-99dc-d26bcd846ff9"),
+                            Brand = "",
+                            CategoryId = new Guid("a419177e-0b69-4974-b0bb-63bc86f601ae"),
+                            City = "",
+                            CreatedDate = new DateTime(2024, 8, 2, 4, 54, 29, 750, DateTimeKind.Local).AddTicks(6476),
+                            Description = "WTF",
+                            Discount = 0m,
+                            HasDiscount = false,
+                            ImageUrl = "",
+                            IsSold = false,
+                            Name = "123",
+                            Price = 12455.01m,
+                            SubCategoryId = new Guid("1b97a0b9-438e-41f3-b7d3-662ab8f3f884")
+                        });
                 });
 
             modelBuilder.Entity("API.Domain.Models.SubCategory", b =>
@@ -207,6 +250,16 @@ namespace API.DAL.Migrations
                     b.HasIndex("CategoryId");
 
                     b.ToTable("SubCategories");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("1b97a0b9-438e-41f3-b7d3-662ab8f3f884"),
+                            CategoryId = new Guid("a419177e-0b69-4974-b0bb-63bc86f601ae"),
+                            ImageUrl = "",
+                            Name = "",
+                            TranslitName = ""
+                        });
                 });
 
             modelBuilder.Entity("CartProduct", b =>
@@ -255,7 +308,7 @@ namespace API.DAL.Migrations
                         .IsRequired();
 
                     b.HasOne("API.Domain.Models.Product", "Product")
-                        .WithOne("Details")
+                        .WithOne("OrderDetails")
                         .HasForeignKey("API.Domain.Models.OrderDetails", "ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -319,7 +372,7 @@ namespace API.DAL.Migrations
 
             modelBuilder.Entity("API.Domain.Models.Product", b =>
                 {
-                    b.Navigation("Details");
+                    b.Navigation("OrderDetails");
                 });
 
             modelBuilder.Entity("API.Domain.Models.SubCategory", b =>
