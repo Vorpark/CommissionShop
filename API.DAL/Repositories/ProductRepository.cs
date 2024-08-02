@@ -18,8 +18,11 @@ namespace API.DAL.Repositories
 
             existingProduct.Name = productDTO.Name;
             existingProduct.Price = productDTO.Price;
+            existingProduct.Discount = productDTO.Discount;
+            existingProduct.HasDiscount = productDTO.HasDiscount;
             existingProduct.IsSold = productDTO.IsSold;
             existingProduct.City = productDTO.City;
+            existingProduct.Brand = productDTO.Brand;
             existingProduct.Description = productDTO.Description;
             existingProduct.ImageUrl = productDTO.ImageUrl;
             existingProduct.SubCategoryId = productDTO.SubCategoryId;
