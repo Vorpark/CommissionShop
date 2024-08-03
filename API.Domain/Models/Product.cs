@@ -3,7 +3,7 @@
 namespace API.Domain.Models
 {
     [Table("Products")]
-    public class Product : BaseGuidModel
+    public class Product : BaseModel<Guid>
     {
         public string Name { get; set; } = string.Empty;
         [Column(TypeName = "decimal(18,2)")]

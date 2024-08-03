@@ -3,7 +3,7 @@
 namespace API.Domain.Models
 {
     [Table("SubCategories")]
-    public class SubCategory : BaseIdModel
+    public class SubCategory : BaseModel<int>
     {
         public string Name { get; set; } = string.Empty;
         public string TranslitName { get; set; } = string.Empty;

@@ -3,7 +3,7 @@
 namespace API.Domain.Models
 {
     [Table("OrderDetails")]
-    public class OrderDetails : BaseGuidModel
+    public class OrderDetails : BaseModel<Guid>
     {
         public Guid OrderId { get; set; }
         public Order? Order { get; set; }

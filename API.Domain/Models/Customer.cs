@@ -3,7 +3,7 @@
 namespace API.Domain.Models
 {
     [Table("Customers")]
-    public class Customer : BaseGuidModel
+    public class Customer : BaseModel<Guid>
     {
         public string FirstName { get; set; } = string.Empty;
         public string LastName { get; set; } = string.Empty;
