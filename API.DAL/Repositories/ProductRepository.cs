@@ -31,9 +31,9 @@ namespace API.DAL.Repositories
             return existingProduct;
         }
 
-        public async Task<IEnumerable<Product>?> GetAll(ProductQueryObject query)
+        public async Task<IEnumerable<Product>?> GetAllByQueryAsync(ProductQueryObject query)
         {
-            var products = dbSet.AsNoTracking().AsQueryable();
+            var products = dbSet.AsNoTracking().AsQueryable().Where(x => x.IsSold == false);
 
             if (query.CategoryId != null)
                 products.Where(x => x.CategoryId == query.CategoryId);
@@ -48,6 +48,9 @@ namespace API.DAL.Repositories
 
             if (query.HasDiscount != false)
                 products = products.Where(x => x.HasDiscount == true);
+
+            if (query.City != null)
+                products = products.Where(x => x.City.Contains(query.City)); //TODO: City в отдельную модель
 
             if (query.Brand != null)
                 products = products.Where(x => x.Brand.Contains(query.Brand));

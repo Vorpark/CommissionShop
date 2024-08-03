@@ -7,6 +7,6 @@ namespace API.DAL.Repositories.IRepository
     public interface IProductRepository : IBaseRepository<Product>
     {
         Task<Product?> UpdateAsync(Guid id, UpdateProductRequestDTO productDTO);
-        Task<IEnumerable<Product>?> GetAll(ProductQueryObject query);
+        Task<IEnumerable<Product>?> GetAllByQueryAsync(ProductQueryObject query);
     }
 }
