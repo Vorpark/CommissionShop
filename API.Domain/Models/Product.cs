@@ -13,7 +13,7 @@ namespace API.Domain.Models
         public bool HasDiscount { get; set; } = false;
         public bool IsSold { get; set; } = false;
         public string City { get; set; } = string.Empty; //TODO: В отдельную модель
-        public string Brand {  get; set; } = string.Empty;
+        public string Brand { get; set; } = string.Empty;
         public string Description { get; set; } = string.Empty;
         public string ImageUrl { get; set; } = string.Empty;
         public DateTime CreatedDate { get; set; } = DateTime.Now;

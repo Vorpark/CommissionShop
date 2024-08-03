@@ -39,24 +39,24 @@ namespace API.Controllers
         }
 
         [HttpGet]
-        [Route("query")] //TODO: Переделать маршрут
-        public async Task<IActionResult> GetAllByQuery([FromQuery] ProductQueryObject query)
+        [Route("page")]
+        public async Task<IActionResult> GetPageByQuery([FromQuery] ProductQueryObject query)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var products = await _repository.GetAllByQueryAsync(query);
+            var products = await _repository.GetPageByQueryAsync(query);
 
             if (products == null)
                 return NotFound();
 
-            var productDTOs = products.Select(x => x.ToProductResponseDTO()); //TODO: Сделать урезанную DTO модель
+            var productDTOs = products.Select(x => x.ToProductPageResponseDTO());
 
             return Ok(productDTOs);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create([FromBody] CreateProductRequestDTO productDTO) 
+        public async Task<IActionResult> Create([FromBody] CreateProductRequestDTO productDTO)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
@@ -66,7 +66,7 @@ namespace API.Controllers
 
             var createdProductDTO = product.ToProductResponseDTO();
 
-            return CreatedAtAction(nameof(GetById), new { id = product.Id}, createdProductDTO);
+            return CreatedAtAction(nameof(GetById), new { id = product.Id }, createdProductDTO);
         }
 
         [HttpPut("{id:guid}")]

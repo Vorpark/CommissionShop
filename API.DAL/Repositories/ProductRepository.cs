@@ -31,7 +31,7 @@ namespace API.DAL.Repositories
             return existingProduct;
         }
 
-        public async Task<IEnumerable<Product>?> GetAllByQueryAsync(ProductQueryObject query)
+        public async Task<IEnumerable<Product>?> GetPageByQueryAsync(ProductQueryObject query)
         {
             var products = dbSet.AsNoTracking().AsQueryable().Where(x => x.IsSold == false);
 

@@ -24,6 +24,20 @@ namespace API.Mappers
             };
         }
 
+        public static ProductPageResponseDTO ToProductPageResponseDTO(this Product product)
+        {
+            return new ProductPageResponseDTO
+            {
+                Id = product.Id,
+                Name = product.Name,
+                Price = product.Price,
+                Discount = product.Discount,
+                HasDiscount = product.HasDiscount,
+                City = product.City,
+                ImageUrl = product.ImageUrl,
+            };
+        }
+
         public static Product ToProductFromCreateRequestDTO(this CreateProductRequestDTO productDTO)
         {
             return new Product()
