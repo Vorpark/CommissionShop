@@ -3,7 +3,7 @@
 namespace API.Domain.Models
 {
     [Table("Carts")]
-    public class Cart : BaseModel
+    public class Cart : BaseGuidModel
     {
         public Customer? Customer { get; set; }
 

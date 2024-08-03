@@ -21,18 +21,16 @@ namespace API.DAL.Data
         {
             base.OnModelCreating(modelBuilder);
 
-            Guid categoryId = Guid.NewGuid();
-            Guid subCategoryId = Guid.NewGuid();
             modelBuilder.Entity<Category>().HasData(
-                new Category() { Id = categoryId }
+                new Category() { Id = 1 }
             );
 
             modelBuilder.Entity<SubCategory>().HasData(
-                new SubCategory() { Id = subCategoryId, CategoryId = categoryId }
+                new SubCategory() { Id = 1, CategoryId = 1 }
             );
 
             modelBuilder.Entity<Product>().HasData(
-                new Product() { Id = Guid.NewGuid(), Name = "123", Price = 12455.01M, Description = "WTF", CategoryId = categoryId, SubCategoryId = subCategoryId }
+                new Product() { Id = Guid.NewGuid(), Name = "123", Price = 12455.01M, Description = "WTF", CategoryId = 1, SubCategoryId = 1 }
             );
 
         }

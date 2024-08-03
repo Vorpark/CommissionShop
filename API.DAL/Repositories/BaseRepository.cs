@@ -7,7 +7,7 @@ using System.Linq.Expressions;
 namespace API.DAL.Repositories
 {
     abstract public class BaseRepository<T> : IBaseRepository<T>
-        where T : BaseModel
+        where T : BaseGuidModel
     {
         private readonly ApplicationDbContext _db;
         protected readonly DbSet<T> dbSet;

@@ -3,7 +3,7 @@
 namespace API.Domain.Models
 {
     [Table("Products")]
-    public class Product : BaseModel
+    public class Product : BaseGuidModel
     {
         public string Name { get; set; } = string.Empty;
         [Column(TypeName = "decimal(18,2)")]
@@ -18,8 +18,8 @@ namespace API.Domain.Models
         public string ImageUrl { get; set; } = string.Empty;
         public DateTime CreatedDate { get; set; } = DateTime.Now;
 
-        public Guid CategoryId { get; set; }
-        public Guid SubCategoryId { get; set; }
+        public int CategoryId { get; set; }
+        public int SubCategoryId { get; set; }
         public SubCategory? SubCategory { get; set; }
 
         public OrderDetails? OrderDetails { get; set; }

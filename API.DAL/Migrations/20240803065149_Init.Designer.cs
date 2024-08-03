@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace API.DAL.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240802015430_Init")]
+    [Migration("20240803065149_Init")]
     partial class Init
     {
         /// <inheritdoc />
@@ -38,9 +38,11 @@ namespace API.DAL.Migrations
 
             modelBuilder.Entity("API.Domain.Models.Category", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("ImageUrl")
                         .IsRequired()
@@ -61,7 +63,7 @@ namespace API.DAL.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("a419177e-0b69-4974-b0bb-63bc86f601ae"),
+                            Id = 1,
                             ImageUrl = "",
                             Name = "",
                             TranslitName = ""
@@ -162,8 +164,8 @@ namespace API.DAL.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid>("CategoryId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<int>("CategoryId")
+                        .HasColumnType("int");
 
                     b.Property<string>("City")
                         .IsRequired()
@@ -196,8 +198,8 @@ namespace API.DAL.Migrations
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<Guid>("SubCategoryId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<int>("SubCategoryId")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -208,11 +210,11 @@ namespace API.DAL.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("efaef2ee-2925-4272-99dc-d26bcd846ff9"),
+                            Id = new Guid("fd26c54d-97d7-4952-9355-b6aa6b2689cc"),
                             Brand = "",
-                            CategoryId = new Guid("a419177e-0b69-4974-b0bb-63bc86f601ae"),
+                            CategoryId = 1,
                             City = "",
-                            CreatedDate = new DateTime(2024, 8, 2, 4, 54, 29, 750, DateTimeKind.Local).AddTicks(6476),
+                            CreatedDate = new DateTime(2024, 8, 3, 9, 51, 49, 506, DateTimeKind.Local).AddTicks(6375),
                             Description = "WTF",
                             Discount = 0m,
                             HasDiscount = false,
@@ -220,18 +222,20 @@ namespace API.DAL.Migrations
                             IsSold = false,
                             Name = "123",
                             Price = 12455.01m,
-                            SubCategoryId = new Guid("1b97a0b9-438e-41f3-b7d3-662ab8f3f884")
+                            SubCategoryId = 1
                         });
                 });
 
             modelBuilder.Entity("API.Domain.Models.SubCategory", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("int");
 
-                    b.Property<Guid>("CategoryId")
-                        .HasColumnType("uniqueidentifier");
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("CategoryId")
+                        .HasColumnType("int");
 
                     b.Property<string>("ImageUrl")
                         .IsRequired()
@@ -254,8 +258,8 @@ namespace API.DAL.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("1b97a0b9-438e-41f3-b7d3-662ab8f3f884"),
-                            CategoryId = new Guid("a419177e-0b69-4974-b0bb-63bc86f601ae"),
+                            Id = 1,
+                            CategoryId = 1,
                             ImageUrl = "",
                             Name = "",
                             TranslitName = ""

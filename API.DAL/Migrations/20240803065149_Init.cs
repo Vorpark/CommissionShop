@@ -26,7 +26,8 @@ namespace API.DAL.Migrations
                 name: "Categories",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     TranslitName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ImageUrl = table.Column<string>(type: "nvarchar(max)", nullable: false)
@@ -65,11 +66,12 @@ namespace API.DAL.Migrations
                 name: "SubCategories",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     TranslitName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ImageUrl = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    CategoryId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                    CategoryId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -116,8 +118,8 @@ namespace API.DAL.Migrations
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ImageUrl = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    CategoryId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    SubCategoryId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                    CategoryId = table.Column<int>(type: "int", nullable: false),
+                    SubCategoryId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -182,17 +184,17 @@ namespace API.DAL.Migrations
             migrationBuilder.InsertData(
                 table: "Categories",
                 columns: new[] { "Id", "ImageUrl", "Name", "TranslitName" },
-                values: new object[] { new Guid("a419177e-0b69-4974-b0bb-63bc86f601ae"), "", "", "" });
+                values: new object[] { 1, "", "", "" });
 
             migrationBuilder.InsertData(
                 table: "SubCategories",
                 columns: new[] { "Id", "CategoryId", "ImageUrl", "Name", "TranslitName" },
-                values: new object[] { new Guid("1b97a0b9-438e-41f3-b7d3-662ab8f3f884"), new Guid("a419177e-0b69-4974-b0bb-63bc86f601ae"), "", "", "" });
+                values: new object[] { 1, 1, "", "", "" });
 
             migrationBuilder.InsertData(
                 table: "Products",
                 columns: new[] { "Id", "Brand", "CategoryId", "City", "CreatedDate", "Description", "Discount", "HasDiscount", "ImageUrl", "IsSold", "Name", "Price", "SubCategoryId" },
-                values: new object[] { new Guid("efaef2ee-2925-4272-99dc-d26bcd846ff9"), "", new Guid("a419177e-0b69-4974-b0bb-63bc86f601ae"), "", new DateTime(2024, 8, 2, 4, 54, 29, 750, DateTimeKind.Local).AddTicks(6476), "WTF", 0m, false, "", false, "123", 12455.01m, new Guid("1b97a0b9-438e-41f3-b7d3-662ab8f3f884") });
+                values: new object[] { new Guid("fd26c54d-97d7-4952-9355-b6aa6b2689cc"), "", 1, "", new DateTime(2024, 8, 3, 9, 51, 49, 506, DateTimeKind.Local).AddTicks(6375), "WTF", 0m, false, "", false, "123", 12455.01m, 1 });
 
             migrationBuilder.CreateIndex(
                 name: "IX_CartProduct_ProductsId",

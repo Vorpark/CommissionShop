@@ -3,7 +3,7 @@
 namespace API.Domain.Models
 {
     [Table("Orders")]
-    public class Order : BaseModel
+    public class Order : BaseGuidModel
     {
         public DateTime CreatedDate { get; set; } = DateTime.Now;
 

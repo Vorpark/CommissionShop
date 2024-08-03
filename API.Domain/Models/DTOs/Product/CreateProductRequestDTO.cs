@@ -21,8 +21,8 @@ namespace API.Domain.Models.DTOs.Product
         [Required]
         public string ImageUrl { get; set; }
         [Required]
-        public Guid CategoryId { get; set; }
+        public int CategoryId { get; set; }
         [Required]
-        public Guid SubCategoryId { get; set; }
+        public int SubCategoryId { get; set; }
     }
 }

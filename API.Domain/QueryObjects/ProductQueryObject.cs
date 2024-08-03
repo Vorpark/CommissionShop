@@ -2,8 +2,8 @@
 {
     public class ProductQueryObject
     {
-        public Guid? CategoryId { get; set; } = null;
-        public Guid? SubCategoryId { get; set; } = null;
+        public int? CategoryId { get; set; } = null;
+        public int? SubCategoryId { get; set; } = null;
         public decimal? MinPrice { get; set; } = null;
         public decimal? MaxPrice { get; set; } = null;
         public bool HasDiscount { get; set; } = false;
