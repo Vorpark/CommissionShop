@@ -5,9 +5,9 @@ namespace API.Mappers
 {
     public static class ProductMapper
     {
-        public static ProductDTO ToProductDTO(this Product product)
+        public static ProductResponseDTO ToProductResponseDTO(this Product product)
         {
-            return new ProductDTO
+            return new ProductResponseDTO
             {
                 Id = product.Id,
                 Name = product.Name,
@@ -24,7 +24,7 @@ namespace API.Mappers
             };
         }
 
-        public static Product ToProductFromCreateDTO(this CreateProductRequestDTO productDTO)
+        public static Product ToProductFromCreateRequestDTO(this CreateProductRequestDTO productDTO)
         {
             return new Product()
             {

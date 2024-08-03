@@ -1,6 +1,6 @@
 ﻿namespace API.Domain.Models.DTOs.Product
 {
-    public class ProductDTO : BaseModelDTO
+    public class ProductResponseDTO : BaseModelResponseDTO
     {
         public string Name { get; set; }
         public decimal Price { get; set; }

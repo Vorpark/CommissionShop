@@ -19,7 +19,7 @@ namespace API.Controllers
             if (product == null)
                 return NotFound();
 
-            var productDTO = product.ToProductDTO();
+            var productDTO = product.ToProductResponseDTO();
 
             return Ok(productDTO);
         }
@@ -32,7 +32,7 @@ namespace API.Controllers
             if (products == null)
                 return NotFound();
 
-            var productDTOs = products.Select(x => x.ToProductDTO());
+            var productDTOs = products.Select(x => x.ToProductResponseDTO());
 
             return Ok(productDTOs);
         }
@@ -43,10 +43,10 @@ namespace API.Controllers
             if (!ModelState.IsValid)
                 return BadRequest(productDTO);
 
-            var product = productDTO.ToProductFromCreateDTO();
+            var product = productDTO.ToProductFromCreateRequestDTO();
             await _repository.AddAsync(product);
 
-            var createdProductDTO = product.ToProductDTO();
+            var createdProductDTO = product.ToProductResponseDTO();
 
             return CreatedAtAction(nameof(GetById), new { id = product.Id}, createdProductDTO);
         }
@@ -62,7 +62,7 @@ namespace API.Controllers
             if (product == null)
                 return NotFound();
 
-            var updatedProductDTO = product.ToProductDTO();
+            var updatedProductDTO = product.ToProductResponseDTO();
 
             return Ok(updatedProductDTO);
         }

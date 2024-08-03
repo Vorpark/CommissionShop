@@ -36,7 +36,7 @@ namespace API.DAL.Repositories
             var products = dbSet.AsNoTracking().AsQueryable();
 
             if (query.CategoryId != null)
-                products.Where(x => x.CategoryId ==  query.CategoryId);
+                products.Where(x => x.CategoryId == query.CategoryId);
             else if (query.SubCategoryId != null)
                 products.Where(x => x.SubCategoryId == query.SubCategoryId);
 

@@ -1,6 +1,6 @@
 ﻿namespace API.Domain.Models.DTOs
 {
-    public abstract class BaseModelDTO
+    public abstract class BaseModelResponseDTO
     {
         public Guid Id { get; set; }
     }
