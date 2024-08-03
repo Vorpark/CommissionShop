@@ -1,5 +1,6 @@
 ﻿using API.DAL.Repositories.IRepository;
 using API.Domain.Models.DTOs.Product;
+using API.Domain.QueryObjects;
 using API.Mappers;
 using Microsoft.AspNetCore.Mvc;
 
@@ -12,7 +13,7 @@ namespace API.Controllers
         private readonly IProductRepository _repository = repository;
 
         [HttpGet("{id:guid}")]
-        public async Task<ActionResult> GetById([FromRoute] Guid id)
+        public async Task<IActionResult> GetById([FromRoute] Guid id)
         {
             var product = await _repository.GetByIdAsync(id);
 
@@ -25,7 +26,7 @@ namespace API.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult> GetAll()
+        public async Task<IActionResult> GetAll()
         {
             var products = await _repository.GetAllAsync();
 
@@ -37,11 +38,28 @@ namespace API.Controllers
             return Ok(productDTOs);
         }
 
+        [HttpGet]
+        [Route("query")] //TODO: Переделать маршрут
+        public async Task<IActionResult> GetAllByQuery([FromQuery] ProductQueryObject query)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var products = await _repository.GetAllByQueryAsync(query);
+
+            if (products == null)
+                return NotFound();
+
+            var productDTOs = products.Select(x => x.ToProductResponseDTO()); //TODO: Сделать урезанную DTO модель
+
+            return Ok(productDTOs);
+        }
+
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] CreateProductRequestDTO productDTO) 
         {
             if (!ModelState.IsValid)
-                return BadRequest(productDTO);
+                return BadRequest(ModelState);
 
             var product = productDTO.ToProductFromCreateRequestDTO();
             await _repository.AddAsync(product);
@@ -55,7 +73,7 @@ namespace API.Controllers
         public async Task<IActionResult> Update([FromRoute] Guid id, [FromBody] UpdateProductRequestDTO productDTO)
         {
             if (!ModelState.IsValid)
-                return BadRequest(productDTO);
+                return BadRequest(ModelState);
 
             var product = await _repository.UpdateAsync(id, productDTO);
 
@@ -68,7 +86,7 @@ namespace API.Controllers
         }
 
         [HttpDelete("{id:guid}")]
-        public async Task<ActionResult> Delete([FromRoute] Guid id)
+        public async Task<IActionResult> Delete([FromRoute] Guid id)
         {
             var product = await _repository.DeleteAsync(id);
 
