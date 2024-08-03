@@ -4,6 +4,7 @@ using API.DAL.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace API.DAL.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240803130739_UpdateProductAndAddCity")]
+    partial class UpdateProductAndAddCity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -201,7 +204,7 @@ namespace API.DAL.Migrations
                     b.Property<int>("DiscountPercent")
                         .HasColumnType("int");
 
-                    b.Property<decimal>("DiscountPrice")
+                    b.Property<decimal>("DiscountedPrice")
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<bool>("HasDiscount")
@@ -235,14 +238,14 @@ namespace API.DAL.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("08dd628e-b3dd-4f7c-ba39-4509cd63e67d"),
+                            Id = new Guid("cc402e63-cba8-4793-a440-e83278bc37a0"),
                             Brand = "",
                             CategoryId = 1,
                             CityId = 1,
-                            CreatedDate = new DateTime(2024, 8, 3, 16, 12, 38, 606, DateTimeKind.Local).AddTicks(2658),
+                            CreatedDate = new DateTime(2024, 8, 3, 16, 7, 38, 540, DateTimeKind.Local).AddTicks(7621),
                             Description = "WTF",
                             DiscountPercent = 0,
-                            DiscountPrice = 0m,
+                            DiscountedPrice = 0m,
                             HasDiscount = false,
                             ImageUrl = "",
                             IsSold = false,

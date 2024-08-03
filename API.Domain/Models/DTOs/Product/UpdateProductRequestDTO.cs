@@ -7,21 +7,23 @@ namespace API.Domain.Models.DTOs.Product
         [Required]
         public string Name { get; set; }
         [Required]
-        public decimal Price { get; set; }
-        [Required]
         public bool IsSold { get; set; }
         [Required]
-        public decimal Discount { get; set; }
+        public decimal Price { get; set; }
         [Required]
         public bool HasDiscount { get; set; }
         [Required]
-        public string City { get; set; }
+        public decimal DiscountPrice { get; set; }
+        [Required]
+        public int DiscountPercent { get; set; }
         [Required]
         public string Brand { get; set; }
         [Required]
         public string Description { get; set; }
         [Required]
         public string ImageUrl { get; set; }
+        [Required]
+        public int CityId { get; set; }
         [Required]
         public int CategoryId { get; set; }
         [Required]

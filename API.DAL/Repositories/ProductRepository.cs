@@ -17,21 +17,23 @@ namespace API.DAL.Repositories
                 return null;
 
             existingProduct.Name = productDTO.Name;
-            existingProduct.Price = productDTO.Price;
-            existingProduct.Discount = productDTO.Discount;
-            existingProduct.HasDiscount = productDTO.HasDiscount;
             existingProduct.IsSold = productDTO.IsSold;
-            existingProduct.City = productDTO.City;
+            existingProduct.Price = productDTO.Price;
+            existingProduct.HasDiscount = productDTO.HasDiscount;
+            existingProduct.DiscountPrice = productDTO.DiscountPrice;
+            existingProduct.DiscountPercent = productDTO.DiscountPercent;
             existingProduct.Brand = productDTO.Brand;
             existingProduct.Description = productDTO.Description;
             existingProduct.ImageUrl = productDTO.ImageUrl;
+            existingProduct.CityId = productDTO.CityId;
+            existingProduct.CategoryId = productDTO.CategoryId;
             existingProduct.SubCategoryId = productDTO.SubCategoryId;
 
             await SaveAsync();
             return existingProduct;
         }
 
-        public async Task<IEnumerable<Product>?> GetPageByQueryAsync(ProductQueryObject query)
+        public async Task<IEnumerable<Product>> GetPageByQueryAsync(ProductQueryObject query)
         {
             var products = dbSet.AsNoTracking().AsQueryable().Where(x => x.IsSold == false);
 
@@ -49,8 +51,8 @@ namespace API.DAL.Repositories
             if (query.HasDiscount != false)
                 products = products.Where(x => x.HasDiscount == true);
 
-            if (query.City != null)
-                products = products.Where(x => x.City.Contains(query.City)); //TODO: City в отдельную модель
+            if (query.CityId != null)
+                products = products.Where(x => x.CityId == query.CityId);
 
             if (query.Brand != null)
                 products = products.Where(x => x.Brand.Contains(query.Brand));

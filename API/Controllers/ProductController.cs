@@ -30,9 +30,6 @@ namespace API.Controllers
         {
             var products = await _repository.GetAllAsync();
 
-            if (products == null)
-                return NotFound();
-
             var productDTOs = products.Select(x => x.ToProductResponseDTO());
 
             return Ok(productDTOs);
@@ -46,9 +43,6 @@ namespace API.Controllers
                 return BadRequest(ModelState);
 
             var products = await _repository.GetPageByQueryAsync(query);
-
-            if (products == null)
-                return NotFound();
 
             var productDTOs = products.Select(x => x.ToProductPageResponseDTO());
 

@@ -4,9 +4,10 @@
     {
         public string Name { get; set; }
         public decimal Price { get; set; }
-        public decimal Discount { get; set; }
         public bool HasDiscount { get; set; }
-        public string City { get; set; }
+        public decimal DiscountPrice { get; set; }
+        public int DiscountPercent { get; set; }
+        public int CityId { get; set; }
         public string ImageUrl { get; set; }
     }
 }

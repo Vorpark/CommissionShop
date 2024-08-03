@@ -21,6 +21,10 @@ namespace API.DAL.Data
         {
             base.OnModelCreating(modelBuilder);
 
+            modelBuilder.Entity<City>().HasData(
+                new City() { Id = 1, Name = "Набережные Челны" }
+            );
+
             modelBuilder.Entity<Category>().HasData(
                 new Category() { Id = 1 }
             );
@@ -30,7 +34,7 @@ namespace API.DAL.Data
             );
 
             modelBuilder.Entity<Product>().HasData(
-                new Product() { Id = Guid.NewGuid(), Name = "123", Price = 12455.01M, Description = "WTF", CategoryId = 1, SubCategoryId = 1 }
+                new Product() { Id = Guid.NewGuid(), Name = "123", Price = 12455.01M, Description = "WTF", CityId = 1, CategoryId = 1, SubCategoryId = 1 }
             );
 
         }
