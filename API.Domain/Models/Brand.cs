@@ -2,8 +2,8 @@
 
 namespace API.Domain.Models
 {
-    [Table("Cities")]
-    public class City : BaseModel<int>
+    [Table("Brands")]
+    public class Brand : BaseModel<int>
     {
         public string Name { get; set; } = string.Empty;
 

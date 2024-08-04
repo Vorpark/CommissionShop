@@ -15,13 +15,13 @@ namespace API.Domain.Models.DTOs.Product
         [Required]
         public int DiscountPercent { get; set; }
         [Required]
-        public string Brand { get; set; }
-        [Required]
         public string Description { get; set; }
         [Required]
         public string ImageUrl { get; set; }
         [Required]
         public int CityId { get; set; }
+        [Required]
+        public int BrandId { get; set; }
         [Required]
         public int CategoryId { get; set; }
         [Required]

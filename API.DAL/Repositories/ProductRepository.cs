@@ -22,10 +22,10 @@ namespace API.DAL.Repositories
             existingProduct.HasDiscount = productDTO.HasDiscount;
             existingProduct.DiscountPrice = productDTO.DiscountPrice;
             existingProduct.DiscountPercent = productDTO.DiscountPercent;
-            existingProduct.Brand = productDTO.Brand;
             existingProduct.Description = productDTO.Description;
             existingProduct.ImageUrl = productDTO.ImageUrl;
             existingProduct.CityId = productDTO.CityId;
+            existingProduct.BrandId = productDTO.BrandId;
             existingProduct.CategoryId = productDTO.CategoryId;
             existingProduct.SubCategoryId = productDTO.SubCategoryId;
 
@@ -48,14 +48,14 @@ namespace API.DAL.Repositories
             if (query.MaxPrice != null)
                 products = products.Where(x => x.Price <= query.MaxPrice);
 
-            if (query.HasDiscount != false)
-                products = products.Where(x => x.HasDiscount == true);
+            if (query.HasDiscount != null)
+                products = products.Where(x => x.HasDiscount == query.HasDiscount);
 
             if (query.CityId != null)
                 products = products.Where(x => x.CityId == query.CityId);
 
-            if (query.Brand != null)
-                products = products.Where(x => x.Brand.Contains(query.Brand));
+            if (query.BrandId != null)
+                products = products.Where(x => x.BrandId == query.BrandId);
 
             if (query.SortBy != null)
             {

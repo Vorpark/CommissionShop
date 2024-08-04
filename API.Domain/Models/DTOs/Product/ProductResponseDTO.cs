@@ -8,10 +8,10 @@
         public bool HasDiscount { get; set; }
         public decimal DiscountPrice { get; set; }
         public int DiscountPercent { get; set; }
-        public string Brand { get; set; }
         public string Description { get; set; }
         public string ImageUrl { get; set; }
         public int CityId { get; set; }
+        public int BrandId { get; set; }
         public int CategoryId { get; set; }
         public int SubCategoryId { get; set; }
     }

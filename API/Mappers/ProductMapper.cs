@@ -16,10 +16,10 @@ namespace API.Mappers
                 HasDiscount = product.HasDiscount,
                 DiscountPrice = product.DiscountPrice,
                 DiscountPercent = product.DiscountPercent,
-                CityId = product.CityId,
-                Brand = product.Brand,
                 Description = product.Description,
                 ImageUrl = product.ImageUrl,
+                CityId = product.CityId,
+                BrandId = product.BrandId,
                 CategoryId = product.CategoryId,
                 SubCategoryId = product.SubCategoryId
             };
@@ -49,10 +49,10 @@ namespace API.Mappers
                 HasDiscount = productDTO.HasDiscount,
                 DiscountPrice = productDTO.DiscountPrice,
                 DiscountPercent = productDTO.DiscountPercent,
-                CityId = productDTO.CityId,
-                Brand = productDTO.Brand,
                 Description = productDTO.Description,
                 ImageUrl = productDTO.ImageUrl,
+                CityId = productDTO.CityId,
+                BrandId = productDTO.BrandId,
                 CategoryId = productDTO.CategoryId,
                 SubCategoryId = productDTO.SubCategoryId
             };
