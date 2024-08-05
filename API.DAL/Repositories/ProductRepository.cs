@@ -17,13 +17,13 @@ namespace API.DAL.Repositories
                 return null;
 
             existingProduct.Name = productDTO.Name;
-            existingProduct.IsSold = productDTO.IsSold;
             existingProduct.Price = productDTO.Price;
             existingProduct.HasDiscount = productDTO.HasDiscount;
             existingProduct.DiscountPrice = productDTO.DiscountPrice;
             existingProduct.DiscountPercent = productDTO.DiscountPercent;
             existingProduct.Description = productDTO.Description;
             existingProduct.ImageUrl = productDTO.ImageUrl;
+            existingProduct.UpdatedDate = DateTime.Now;
             existingProduct.CityId = productDTO.CityId;
             existingProduct.BrandId = productDTO.BrandId;
             existingProduct.CategoryId = productDTO.CategoryId;
@@ -59,8 +59,8 @@ namespace API.DAL.Repositories
 
             if (query.SortBy != null)
             {
-                if (query.SortBy.Equals("createdAt", StringComparison.OrdinalIgnoreCase))
-                    products = query.IsDecsending ? products.OrderByDescending(x => x.CreatedDate) : products.OrderBy(x => x.CreatedDate);
+                if (query.SortBy.Equals("date", StringComparison.OrdinalIgnoreCase))
+                    products = query.IsDecsending ? products.OrderByDescending(x => x.UpdatedDate) : products.OrderBy(x => x.UpdatedDate);
                 else if (query.SortBy.Equals("price", StringComparison.OrdinalIgnoreCase))
                     products = query.IsDecsending ? products.OrderByDescending(x => x.Price) : products.OrderBy(x => x.Price);
             }

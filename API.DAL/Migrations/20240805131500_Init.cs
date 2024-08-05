@@ -142,6 +142,7 @@ namespace API.DAL.Migrations
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ImageUrl = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UpdatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     CityId = table.Column<int>(type: "int", nullable: false),
                     BrandId = table.Column<int>(type: "int", nullable: false),
                     CategoryId = table.Column<int>(type: "int", nullable: false),
@@ -241,8 +242,8 @@ namespace API.DAL.Migrations
 
             migrationBuilder.InsertData(
                 table: "Products",
-                columns: new[] { "Id", "BrandId", "CategoryId", "CityId", "CreatedDate", "Description", "DiscountPercent", "DiscountPrice", "HasDiscount", "ImageUrl", "IsSold", "Name", "Price", "SubCategoryId" },
-                values: new object[] { new Guid("e85136d4-4821-4cf8-82aa-a64a6b60d8b2"), 1, 1, 1, new DateTime(2024, 8, 5, 15, 46, 15, 629, DateTimeKind.Local).AddTicks(5888), "WTF", 0, 0m, false, "", false, "123", 12455.01m, 1 });
+                columns: new[] { "Id", "BrandId", "CategoryId", "CityId", "CreatedDate", "Description", "DiscountPercent", "DiscountPrice", "HasDiscount", "ImageUrl", "IsSold", "Name", "Price", "SubCategoryId", "UpdatedDate" },
+                values: new object[] { new Guid("fa3aab0b-e28c-4226-a440-d7f4691df48f"), 1, 1, 1, new DateTime(2024, 8, 5, 13, 15, 0, 569, DateTimeKind.Utc).AddTicks(99), "WTF", 0, 0m, false, "", false, "123", 12455.01m, 1, new DateTime(2024, 8, 5, 13, 15, 0, 569, DateTimeKind.Utc).AddTicks(101) });
 
             migrationBuilder.CreateIndex(
                 name: "IX_CartProduct_ProductsId",

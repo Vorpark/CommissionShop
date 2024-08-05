@@ -7,8 +7,6 @@ namespace API.Domain.Models.DTOs.Product
         [Required]
         public string Name { get; set; }
         [Required]
-        public bool IsSold { get; set; }
-        [Required]
         public decimal Price { get; set; }
         [Required]
         public bool HasDiscount { get; set; }

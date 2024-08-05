@@ -18,6 +18,8 @@ namespace API.Mappers
                 DiscountPercent = product.DiscountPercent,
                 Description = product.Description,
                 ImageUrl = product.ImageUrl,
+                CreatedDate = product.CreatedDate,
+                UpdatedDate = product.UpdatedDate,
                 CityId = product.CityId,
                 BrandId = product.BrandId,
                 CategoryId = product.CategoryId,

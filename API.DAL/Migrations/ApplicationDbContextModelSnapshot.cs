@@ -202,6 +202,9 @@ namespace API.DAL.Migrations
                     b.Property<int>("SubCategoryId")
                         .HasColumnType("int");
 
+                    b.Property<DateTime>("UpdatedDate")
+                        .HasColumnType("datetime2");
+
                     b.HasKey("Id");
 
                     b.HasIndex("BrandId");
@@ -215,11 +218,11 @@ namespace API.DAL.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("e85136d4-4821-4cf8-82aa-a64a6b60d8b2"),
+                            Id = new Guid("fa3aab0b-e28c-4226-a440-d7f4691df48f"),
                             BrandId = 1,
                             CategoryId = 1,
                             CityId = 1,
-                            CreatedDate = new DateTime(2024, 8, 5, 15, 46, 15, 629, DateTimeKind.Local).AddTicks(5888),
+                            CreatedDate = new DateTime(2024, 8, 5, 13, 15, 0, 569, DateTimeKind.Utc).AddTicks(99),
                             Description = "WTF",
                             DiscountPercent = 0,
                             DiscountPrice = 0m,
@@ -228,7 +231,8 @@ namespace API.DAL.Migrations
                             IsSold = false,
                             Name = "123",
                             Price = 12455.01m,
-                            SubCategoryId = 1
+                            SubCategoryId = 1,
+                            UpdatedDate = new DateTime(2024, 8, 5, 13, 15, 0, 569, DateTimeKind.Utc).AddTicks(101)
                         });
                 });
 
