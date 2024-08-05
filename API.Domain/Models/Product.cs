@@ -15,8 +15,8 @@ namespace API.Domain.Models
         public int DiscountPercent { get; set; } = 0;
         public string Description { get; set; } = string.Empty;
         public string ImageUrl { get; set; } = string.Empty;
-        public DateTime CreatedDate { get; set; } = DateTime.Now;
-        public DateTime UpdatedDate { get; set; } = DateTime.Now;
+        public DateTime CreatedDate { get; set; } = DateTime.UtcNow;
+        public DateTime UpdatedDate { get; set; } = DateTime.UtcNow;
 
         public int CityId { get; set; }
         public City? City { get; set; }

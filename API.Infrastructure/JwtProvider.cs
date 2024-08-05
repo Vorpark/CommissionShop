@@ -21,8 +21,8 @@ namespace API.Infrastructure
                 SecurityAlgorithms.HmacSha256);
 
             var token = new JwtSecurityToken(
-                signingCredentials: signingCredentials,
                 claims: claims,
+                signingCredentials: signingCredentials,
                 expires: DateTime.UtcNow.AddHours(_options.ExpireHours));
 
             var tokenValue = new JwtSecurityTokenHandler().WriteToken(token);

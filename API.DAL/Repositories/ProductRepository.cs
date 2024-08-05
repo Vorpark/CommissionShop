@@ -23,7 +23,7 @@ namespace API.DAL.Repositories
             product.DiscountPercent = productDTO.DiscountPercent;
             product.Description = productDTO.Description;
             product.ImageUrl = productDTO.ImageUrl;
-            product.UpdatedDate = DateTime.Now;
+            product.UpdatedDate = DateTime.UtcNow;
             product.CityId = productDTO.CityId;
             product.BrandId = productDTO.BrandId;
             product.CategoryId = productDTO.CategoryId;

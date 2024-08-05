@@ -1,4 +1,4 @@
-﻿using API.DAL.Repositories.IRepository;
+﻿ using API.DAL.Repositories.IRepository;
 using API.Domain.Models.DTOs.User;
 using API.Infrastructure.Interfaces;
 using API.Mappers;
@@ -14,8 +14,7 @@ namespace API.Controllers
         private readonly IPasswordHasher _passwordHasher = passwordHasher;
         private readonly IJwtProvider _jwtprovider = jwtProvider;
 
-        [HttpPost]
-        [Route("register")]
+        [HttpPost("register")]
         public async Task<IActionResult> Register([FromBody] RegisterUserRequestDTO userDTO)
         {
             if (!ModelState.IsValid)
@@ -29,8 +28,7 @@ namespace API.Controllers
             return Ok();
         }
 
-        [HttpPost]
-        [Route("login")]
+        [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] LoginUserResponseDTO userDTO)
         {
             if (!ModelState.IsValid)
@@ -39,16 +37,23 @@ namespace API.Controllers
             var user = await _repository.GetByEmailAsync(userDTO.Email);
 
             if (user == null)
-                return NotFound(userDTO.Email);
+            {
+                ModelState.AddModelError("Ошибка", "Данная почта не зарегистрирована");
+                return BadRequest(ModelState);
+            }
 
             var result = _passwordHasher.Verify(userDTO.Password, user.PasswordHash);
 
             if (result == false)
-                return BadRequest(userDTO.Password);
+            {
+                ModelState.AddModelError("Ошибка", "Неверный пароль");
+                return BadRequest(ModelState);
+            }
 
             var token = _jwtprovider.GenerateToken(user);
+            HttpContext.Response.Cookies.Append("cookies", token);
 
-            return Ok(token);
+            return Ok();
         }
     }
 }

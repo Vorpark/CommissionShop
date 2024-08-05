@@ -1,8 +1,10 @@
 using API.DAL.Data;
 using API.DAL.Repositories;
 using API.DAL.Repositories.IRepository;
+using API.Extensions;
 using API.Infrastructure;
 using API.Infrastructure.Interfaces;
+using Microsoft.AspNetCore.CookiePolicy;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -10,6 +12,8 @@ var services = builder.Services;
 var configuration = builder.Configuration;
 
 services.Configure<JwtOptions>(configuration.GetSection(nameof(JwtOptions)));
+
+services.AddApiAuthentication(configuration);
 
 services.AddControllers();
 
@@ -40,6 +44,14 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.UseCookiePolicy(new CookiePolicyOptions
+{
+    MinimumSameSitePolicy = SameSiteMode.Strict,
+    HttpOnly = HttpOnlyPolicy.Always,
+    Secure = CookieSecurePolicy.Always
+});
+
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();

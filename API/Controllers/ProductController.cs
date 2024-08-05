@@ -35,8 +35,7 @@ namespace API.Controllers
             return Ok(productDTOs);
         }
 
-        [HttpGet]
-        [Route("page")]
+        [HttpGet("page")]
         public async Task<IActionResult> GetPageByQuery([FromQuery] ProductQueryObject query)
         {
             if (!ModelState.IsValid)
