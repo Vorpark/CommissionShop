@@ -5,7 +5,7 @@ namespace API.DAL.Data
 {
     public class ApplicationDbContext : DbContext
     {
-        public DbSet<Customer> Customers { get; set; }
+        public DbSet<User> Users { get; set; }
         public DbSet<Product> Products { get; set; }
         public DbSet<City> Cities { get; set; }
         public DbSet<Brand> Brands { get; set; }

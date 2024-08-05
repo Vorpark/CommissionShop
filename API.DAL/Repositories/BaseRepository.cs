@@ -46,7 +46,7 @@ namespace API.DAL.Repositories
             return await query.Where(filter).FirstOrDefaultAsync();
         }
 
-        public async Task<IEnumerable<T>> GetAllAsync()
+        public virtual async Task<IEnumerable<T>> GetAllAsync()
         {
             return await dbSet.AsNoTracking().ToListAsync();
         }

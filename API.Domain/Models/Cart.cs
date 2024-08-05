@@ -5,7 +5,7 @@ namespace API.Domain.Models
     [Table("Carts")]
     public class Cart : BaseModel<Guid>
     {
-        public Customer? Customer { get; set; }
+        public User? User { get; set; }
 
         public ICollection<Product> Products { get; set; } = [];
     }

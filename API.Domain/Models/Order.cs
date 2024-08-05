@@ -7,8 +7,7 @@ namespace API.Domain.Models
     {
         public DateTime CreatedDate { get; set; } = DateTime.Now;
 
-        public Guid CustomerId { get; set; }
-        public Customer? Customer { get; set; }
+        public Guid UserId { get; set; }
 
         public ICollection<OrderDetails> OrderDetails { get; set; } = [];
     }

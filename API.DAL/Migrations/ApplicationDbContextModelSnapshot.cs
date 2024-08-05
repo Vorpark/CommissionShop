@@ -115,49 +115,6 @@ namespace API.DAL.Migrations
                         });
                 });
 
-            modelBuilder.Entity("API.Domain.Models.Customer", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("CartId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("City")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Country")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("FirstName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("LastName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<decimal>("PhoneNumber")
-                        .HasColumnType("decimal(18,0)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CartId")
-                        .IsUnique();
-
-                    b.ToTable("Customers");
-                });
-
             modelBuilder.Entity("API.Domain.Models.Order", b =>
                 {
                     b.Property<Guid>("Id")
@@ -167,12 +124,10 @@ namespace API.DAL.Migrations
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<Guid>("CustomerId")
+                    b.Property<Guid>("UserId")
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("CustomerId");
 
                     b.ToTable("Orders");
                 });
@@ -260,11 +215,11 @@ namespace API.DAL.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("a695bfea-ba6a-45ac-b68a-a8d9f985918e"),
+                            Id = new Guid("e85136d4-4821-4cf8-82aa-a64a6b60d8b2"),
                             BrandId = 1,
                             CategoryId = 1,
                             CityId = 1,
-                            CreatedDate = new DateTime(2024, 8, 4, 18, 5, 22, 121, DateTimeKind.Local).AddTicks(6531),
+                            CreatedDate = new DateTime(2024, 8, 5, 15, 46, 15, 629, DateTimeKind.Local).AddTicks(5888),
                             Description = "WTF",
                             DiscountPercent = 0,
                             DiscountPrice = 0m,
@@ -317,6 +272,46 @@ namespace API.DAL.Migrations
                         });
                 });
 
+            modelBuilder.Entity("API.Domain.Models.User", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("CartId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("CityId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PasswordHash")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("PhoneNumber")
+                        .HasColumnType("decimal(11,0)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CartId")
+                        .IsUnique();
+
+                    b.HasIndex("CityId");
+
+                    b.ToTable("Users");
+                });
+
             modelBuilder.Entity("CartProduct", b =>
                 {
                     b.Property<Guid>("CartsId")
@@ -330,28 +325,6 @@ namespace API.DAL.Migrations
                     b.HasIndex("ProductsId");
 
                     b.ToTable("CartProduct");
-                });
-
-            modelBuilder.Entity("API.Domain.Models.Customer", b =>
-                {
-                    b.HasOne("API.Domain.Models.Cart", "Cart")
-                        .WithOne("Customer")
-                        .HasForeignKey("API.Domain.Models.Customer", "CartId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Cart");
-                });
-
-            modelBuilder.Entity("API.Domain.Models.Order", b =>
-                {
-                    b.HasOne("API.Domain.Models.Customer", "Customer")
-                        .WithMany()
-                        .HasForeignKey("CustomerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Customer");
                 });
 
             modelBuilder.Entity("API.Domain.Models.OrderDetails", b =>
@@ -411,6 +384,25 @@ namespace API.DAL.Migrations
                     b.Navigation("Category");
                 });
 
+            modelBuilder.Entity("API.Domain.Models.User", b =>
+                {
+                    b.HasOne("API.Domain.Models.Cart", "Cart")
+                        .WithOne("User")
+                        .HasForeignKey("API.Domain.Models.User", "CartId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("API.Domain.Models.City", "City")
+                        .WithMany()
+                        .HasForeignKey("CityId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Cart");
+
+                    b.Navigation("City");
+                });
+
             modelBuilder.Entity("CartProduct", b =>
                 {
                     b.HasOne("API.Domain.Models.Cart", null)
@@ -433,7 +425,7 @@ namespace API.DAL.Migrations
 
             modelBuilder.Entity("API.Domain.Models.Cart", b =>
                 {
-                    b.Navigation("Customer");
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("API.Domain.Models.Category", b =>
