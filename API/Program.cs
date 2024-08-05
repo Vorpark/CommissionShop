@@ -1,24 +1,34 @@
 using API.DAL.Data;
 using API.DAL.Repositories;
 using API.DAL.Repositories.IRepository;
+using API.Infrastructure;
+using API.Infrastructure.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
+var services = builder.Services;
+var configuration = builder.Configuration;
 
-builder.Services.AddControllers();
+services.Configure<JwtOptions>(configuration.GetSection(nameof(JwtOptions)));
 
-builder.Services.AddControllers().AddNewtonsoftJson(options =>
+services.AddControllers();
+
+services.AddControllers().AddNewtonsoftJson(options =>
 {
     options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
 });
 
-builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+services.AddDbContext<ApplicationDbContext>(options =>
+    options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
 
-builder.Services.AddScoped<IProductRepository, ProductRepository>();
+services.AddScoped<IProductRepository, ProductRepository>();
+services.AddScoped<IUserRepository, UserRepository>();
 
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+services.AddScoped<IJwtProvider, JwtProvider>();
+services.AddScoped<IPasswordHasher, PasswordHasher>();
+
+services.AddEndpointsApiExplorer();
+services.AddSwaggerGen();
 
 var app = builder.Build();
 

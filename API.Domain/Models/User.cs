@@ -12,7 +12,7 @@ namespace API.Domain.Models
         public decimal PhoneNumber { get; set; } = 0;
         public DateTime CreatedDate { get; set; } = DateTime.Now;
 
-        public Guid CartId { get; set; } = Guid.Empty; //Заглушка, добавить в UserController автоматическое создание корзины 
+        public Guid CartId { get; set; } = new Guid("49cc873c-5fe6-4c53-81cd-212169f69dca"); //Заглушка, добавить в UserController автоматическое создание корзины 
         public Cart? Cart { get; set; }
     }
 }

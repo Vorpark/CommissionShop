@@ -43,6 +43,9 @@ namespace API.DAL.Data
                 new Product() { Id = Guid.NewGuid(), Name = "123", Price = 12455.01M, Description = "WTF", CityId = 1, BrandId = 1, CategoryId = 1, SubCategoryId = 1 }
             );
 
+            modelBuilder.Entity<Cart>().HasData(
+                new Cart() { Id = Guid.NewGuid() }
+            );
         }
     }
 }
