@@ -51,7 +51,7 @@ namespace API.DAL.Repositories
             return await dbSet.AsNoTracking().ToListAsync();
         }
 
-        public async Task AddAsync(T entity)
+        public async Task CreateAsync(T entity)
         {
             await dbSet.AddAsync(entity);
             await SaveAsync();

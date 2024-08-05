@@ -8,7 +8,7 @@ namespace API.DAL.Repositories.IRepository
         Task<T?> GetByIdAsync(Guid id, string? includeProperties = null);
         Task<T?> GetByFilterAsync(Expression<Func<T, bool>> filter, string? includeProperties = null);
         Task<IEnumerable<T>> GetAllAsync();
-        Task AddAsync(T entity);
+        Task CreateAsync(T entity);
         Task<T?> DeleteAsync(Guid id);
         Task<bool> Exists(Guid id);
         Task SaveAsync();

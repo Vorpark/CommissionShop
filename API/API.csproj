@@ -17,6 +17,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\API.DAL\API.DAL.csproj" />
+    <ProjectReference Include="..\API.Infrastructure\API.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

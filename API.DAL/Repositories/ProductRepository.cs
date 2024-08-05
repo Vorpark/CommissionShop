@@ -11,26 +11,26 @@ namespace API.DAL.Repositories
     {
         public async Task<Product?> UpdateAsync(Guid id, UpdateProductRequestDTO productDTO)
         {
-            var existingProduct = await dbSet.FirstOrDefaultAsync(x => x.Id == id);
+            var product = await dbSet.FirstOrDefaultAsync(x => x.Id == id);
 
-            if (existingProduct == null)
+            if (product == null)
                 return null;
 
-            existingProduct.Name = productDTO.Name;
-            existingProduct.Price = productDTO.Price;
-            existingProduct.HasDiscount = productDTO.HasDiscount;
-            existingProduct.DiscountPrice = productDTO.DiscountPrice;
-            existingProduct.DiscountPercent = productDTO.DiscountPercent;
-            existingProduct.Description = productDTO.Description;
-            existingProduct.ImageUrl = productDTO.ImageUrl;
-            existingProduct.UpdatedDate = DateTime.Now;
-            existingProduct.CityId = productDTO.CityId;
-            existingProduct.BrandId = productDTO.BrandId;
-            existingProduct.CategoryId = productDTO.CategoryId;
-            existingProduct.SubCategoryId = productDTO.SubCategoryId;
+            product.Name = productDTO.Name;
+            product.Price = productDTO.Price;
+            product.HasDiscount = productDTO.HasDiscount;
+            product.DiscountPrice = productDTO.DiscountPrice;
+            product.DiscountPercent = productDTO.DiscountPercent;
+            product.Description = productDTO.Description;
+            product.ImageUrl = productDTO.ImageUrl;
+            product.UpdatedDate = DateTime.Now;
+            product.CityId = productDTO.CityId;
+            product.BrandId = productDTO.BrandId;
+            product.CategoryId = productDTO.CategoryId;
+            product.SubCategoryId = productDTO.SubCategoryId;
 
             await SaveAsync();
-            return existingProduct;
+            return product;
         }
 
         public async Task<IEnumerable<Product>> GetPageByQueryAsync(ProductQueryObject query)

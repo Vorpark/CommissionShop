@@ -56,7 +56,7 @@ namespace API.Controllers
                 return BadRequest(ModelState);
 
             var product = productDTO.ToProductFromCreateRequestDTO();
-            await _repository.AddAsync(product);
+            await _repository.CreateAsync(product);
 
             var createdProductDTO = product.ToProductResponseDTO();
 
