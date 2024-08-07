@@ -12,7 +12,7 @@ namespace API.Controllers
     {
         private readonly IUserRepository _repository = repository;
         private readonly IPasswordHasher _passwordHasher = passwordHasher;
-        private readonly IJwtProvider _jwtprovider = jwtProvider;
+        private readonly IJwtProvider _jwtProvider = jwtProvider;
 
         [HttpPost("register")]
         public async Task<IActionResult> Register([FromBody] RegisterUserRequestDTO userDTO)
@@ -50,8 +50,8 @@ namespace API.Controllers
                 return BadRequest(ModelState);
             }
 
-            var token = _jwtprovider.GenerateToken(user);
-            HttpContext.Response.Cookies.Append("cookies", token);
+            var token = _jwtProvider.GenerateToken(user);
+            HttpContext.Response.Cookies.Append("login_info", token);
 
             return Ok();
         }

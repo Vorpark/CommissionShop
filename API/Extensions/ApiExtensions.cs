@@ -1,6 +1,5 @@
 ﻿using API.Infrastructure;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 
@@ -10,11 +9,22 @@ namespace API.Extensions
     {
         public static void AddApiAuthentication(this IServiceCollection services, IConfiguration configuration)
         {
+            services.Configure<JwtOptions>(configuration.GetSection(nameof(JwtOptions)));
+
             var jwtOptions = configuration.GetSection(nameof(JwtOptions)).Get<JwtOptions>();
 
-            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).
-                AddJwtBearer(JwtBearerDefaults.AuthenticationScheme, options =>
+            services
+                .AddAuthentication(options => 
                 {
+                    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                    options.DefaultSignInScheme = JwtBearerDefaults.AuthenticationScheme;
+                    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+                })
+                .AddJwtBearer(JwtBearerDefaults.AuthenticationScheme, options =>
+                {
+                    options.RequireHttpsMetadata = true;
+                    options.SaveToken = true;
+
                     options.TokenValidationParameters = new()
                     {
                         ValidateIssuer = false,
@@ -28,7 +38,7 @@ namespace API.Extensions
                     {
                         OnMessageReceived = context =>
                         {
-                            context.Token = context.Request.Cookies["cookies"];
+                            context.Token = context.Request.Cookies["login_info"];
 
                             return Task.CompletedTask;
                         }

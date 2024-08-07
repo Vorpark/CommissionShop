@@ -11,8 +11,6 @@ var builder = WebApplication.CreateBuilder(args);
 var services = builder.Services;
 var configuration = builder.Configuration;
 
-services.Configure<JwtOptions>(configuration.GetSection(nameof(JwtOptions)));
-
 services.AddApiAuthentication(configuration);
 
 services.AddControllers();
