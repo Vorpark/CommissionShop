@@ -9,8 +9,6 @@ namespace API.Extensions
     {
         public static void AddApiAuthentication(this IServiceCollection services, IConfiguration configuration)
         {
-            services.Configure<JwtOptions>(configuration.GetSection(nameof(JwtOptions)));
-
             var jwtOptions = configuration.GetSection(nameof(JwtOptions)).Get<JwtOptions>();
 
             services

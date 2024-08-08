@@ -1,4 +1,4 @@
-﻿using API.Domain.Models;
+﻿using API.Domain.Models.UserModels;
 using API.Infrastructure.Interfaces;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;

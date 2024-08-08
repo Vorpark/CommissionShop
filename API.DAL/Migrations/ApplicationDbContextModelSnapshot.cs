@@ -59,7 +59,7 @@ namespace API.DAL.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("49cc873c-5fe6-4c53-81cd-212169f69dca")
+                            Id = new Guid("07cd44f0-f887-4be0-b4aa-ad7c656df04f")
                         });
                 });
 
@@ -224,11 +224,11 @@ namespace API.DAL.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("6ce7b933-912e-4ce9-8178-474f65fbcda0"),
+                            Id = new Guid("fb0f1a7f-90f9-4c6c-9263-c04bfae9dc63"),
                             BrandId = 1,
                             CategoryId = 1,
                             CityId = 1,
-                            CreatedDate = new DateTime(2024, 8, 5, 18, 40, 39, 796, DateTimeKind.Local).AddTicks(7787),
+                            CreatedDate = new DateTime(2024, 8, 8, 17, 18, 24, 538, DateTimeKind.Utc).AddTicks(6511),
                             Description = "WTF",
                             DiscountPercent = 0,
                             DiscountPrice = 0m,
@@ -238,7 +238,7 @@ namespace API.DAL.Migrations
                             Name = "123",
                             Price = 12455.01m,
                             SubCategoryId = 1,
-                            UpdatedDate = new DateTime(2024, 8, 5, 18, 40, 39, 796, DateTimeKind.Local).AddTicks(7795)
+                            UpdatedDate = new DateTime(2024, 8, 8, 17, 18, 24, 538, DateTimeKind.Utc).AddTicks(6514)
                         });
                 });
 
@@ -282,7 +282,85 @@ namespace API.DAL.Migrations
                         });
                 });
 
-            modelBuilder.Entity("API.Domain.Models.User", b =>
+            modelBuilder.Entity("API.Domain.Models.UserModels.Permission", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Permissions");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "Read"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "ReadAll"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Name = "Create"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Name = "Update"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Name = "Delete"
+                        });
+                });
+
+            modelBuilder.Entity("API.Domain.Models.UserModels.Role", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Roles");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "User"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "Editor"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Name = "Admin"
+                        });
+                });
+
+            modelBuilder.Entity("API.Domain.Models.UserModels.User", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -309,10 +387,15 @@ namespace API.DAL.Migrations
                     b.Property<decimal>("PhoneNumber")
                         .HasColumnType("decimal(11,0)");
 
+                    b.Property<int>("RoleId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.HasIndex("CartId")
                         .IsUnique();
+
+                    b.HasIndex("RoleId");
 
                     b.ToTable("Users");
                 });
@@ -330,6 +413,21 @@ namespace API.DAL.Migrations
                     b.HasIndex("ProductsId");
 
                     b.ToTable("CartProduct");
+                });
+
+            modelBuilder.Entity("PermissionRole", b =>
+                {
+                    b.Property<int>("PermissionsId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("RolesId")
+                        .HasColumnType("int");
+
+                    b.HasKey("PermissionsId", "RolesId");
+
+                    b.HasIndex("RolesId");
+
+                    b.ToTable("PermissionRole");
                 });
 
             modelBuilder.Entity("API.Domain.Models.OrderDetails", b =>
@@ -389,15 +487,23 @@ namespace API.DAL.Migrations
                     b.Navigation("Category");
                 });
 
-            modelBuilder.Entity("API.Domain.Models.User", b =>
+            modelBuilder.Entity("API.Domain.Models.UserModels.User", b =>
                 {
                     b.HasOne("API.Domain.Models.Cart", "Cart")
                         .WithOne("User")
-                        .HasForeignKey("API.Domain.Models.User", "CartId")
+                        .HasForeignKey("API.Domain.Models.UserModels.User", "CartId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("API.Domain.Models.UserModels.Role", "Role")
+                        .WithMany("Users")
+                        .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Cart");
+
+                    b.Navigation("Role");
                 });
 
             modelBuilder.Entity("CartProduct", b =>
@@ -411,6 +517,21 @@ namespace API.DAL.Migrations
                     b.HasOne("API.Domain.Models.Product", null)
                         .WithMany()
                         .HasForeignKey("ProductsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("PermissionRole", b =>
+                {
+                    b.HasOne("API.Domain.Models.UserModels.Permission", null)
+                        .WithMany()
+                        .HasForeignKey("PermissionsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("API.Domain.Models.UserModels.Role", null)
+                        .WithMany()
+                        .HasForeignKey("RolesId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
@@ -448,6 +569,11 @@ namespace API.DAL.Migrations
             modelBuilder.Entity("API.Domain.Models.SubCategory", b =>
                 {
                     b.Navigation("Products");
+                });
+
+            modelBuilder.Entity("API.Domain.Models.UserModels.Role", b =>
+                {
+                    b.Navigation("Users");
                 });
 #pragma warning restore 612, 618
         }

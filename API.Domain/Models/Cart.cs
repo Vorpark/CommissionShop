@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
+using API.Domain.Models.UserModels;
 
 namespace API.Domain.Models
 {

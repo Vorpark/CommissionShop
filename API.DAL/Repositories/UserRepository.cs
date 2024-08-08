@@ -1,6 +1,6 @@
 ﻿using API.DAL.Data;
 using API.DAL.Repositories.IRepository;
-using API.Domain.Models;
+using API.Domain.Models.UserModels;
 using Microsoft.EntityFrameworkCore;
 
 namespace API.DAL.Repositories

@@ -1,4 +1,4 @@
-﻿using API.Domain.Models;
+﻿using API.Domain.Models.UserModels;
 
 namespace API.DAL.Repositories.IRepository
 {
