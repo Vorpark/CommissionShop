@@ -7,7 +7,7 @@ namespace API.Domain.Models.UserModels
     {
         public string Name { get; set; } = string.Empty;
 
-        public ICollection<Permission> Permissions { get; set; } = [];
+        public ICollection<RolePermission> RolePermissions { get; set; } = [];
         public ICollection<User> Users { get; set; } = [];
     }
 }

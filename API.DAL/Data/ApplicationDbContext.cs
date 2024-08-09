@@ -6,11 +6,12 @@ using Microsoft.Extensions.Options;
 
 namespace API.DAL.Data
 {
-    public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options/*, IOptions<AuthorizationOptions> authOptions*/) : DbContext(options)
+    public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options, IOptions<AuthorizationOptions> authOptions) : DbContext(options)
     {
         public DbSet<User> Users { get; set; }
         public DbSet<Role> Roles { get; set; }
         public DbSet<Permission> Permissions { get; set; }
+        public DbSet<RolePermission> RolePermissions { get; set; }
         public DbSet<Product> Products { get; set; }
         public DbSet<City> Cities { get; set; }
         public DbSet<Brand> Brands { get; set; }
@@ -22,6 +23,7 @@ namespace API.DAL.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            //TODO: Распределить все это по конфигам
             base.OnModelCreating(modelBuilder);
 
             modelBuilder.Entity<City>().HasData(
@@ -56,7 +58,18 @@ namespace API.DAL.Data
                 Enum.GetValues<Roles>().Select(x =>
                 new Role { Id = (int)x, Name = x.ToString() }));
 
-            //TODO: Many to many RolePermissions - authOptions
+            modelBuilder.Entity<RolePermission>()
+                .HasKey(t => new { t.RoleId, t.PermissionId });
+
+            modelBuilder.Entity<RolePermission>().HasData(
+                authOptions.Value.RolePermissions
+                .SelectMany(rp => rp.Permissions
+                    .Select(p => new RolePermission
+                    {
+                        RoleId = (int)Enum.Parse<Roles>(rp.Role),
+                        PermissionId = (int)Enum.Parse<Permissions>(p)
+                    })).ToArray()
+                );
         }
     }
 }
