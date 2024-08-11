@@ -1,5 +1,8 @@
-﻿namespace API.Domain.Models.UserModels
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace API.Domain.Models.UserModels
 {
+    [Table("RolePermissions")]
     public class RolePermission
     {
         public int RoleId { get; set; }

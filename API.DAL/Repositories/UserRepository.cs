@@ -1,5 +1,6 @@
 ﻿using API.DAL.Data;
 using API.DAL.Repositories.IRepository;
+using API.Domain.Enums;
 using API.Domain.Models.UserModels;
 using Microsoft.EntityFrameworkCore;
 
@@ -14,6 +15,14 @@ namespace API.DAL.Repositories
             return user;
         }
 
+        public async Task<HashSet<Permissions>> GetUserPermissionsByGuidAsync(Guid userId) //TODO: Рефактор
+        {
+            var user = await dbSet.AsNoTracking().FirstOrDefaultAsync(x => x.Id == userId);
+            
+            var permissions = user!.RoleId.ToString().Select(x => (Permissions)int.Parse(x.ToString())).ToHashSet(); //Возвращает только одно разрешение, пофиксить
+
+            return permissions;
+        }
         //TODO: Update
     }
 }

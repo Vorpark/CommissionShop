@@ -12,6 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\API.DAL\API.DAL.csproj" />
     <ProjectReference Include="..\API.Domain\API.Domain.csproj" />
   </ItemGroup>
 

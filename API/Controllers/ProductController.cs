@@ -1,7 +1,9 @@
 ﻿using API.DAL.Repositories.IRepository;
+using API.Domain.Enums;
 using API.Domain.Models.DTOs.Product;
 using API.Domain.QueryObjects;
 using API.Mappers;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
@@ -26,6 +28,7 @@ namespace API.Controllers
         }
 
         [HttpGet]
+        [Authorize(Policy = "ReadAll")]
         public async Task<IActionResult> GetAll()
         {
             var products = await _repository.GetAllAsync();
@@ -49,6 +52,7 @@ namespace API.Controllers
         }
 
         [HttpPost]
+        [Authorize(Policy = "Create")]
         public async Task<IActionResult> Create([FromBody] CreateProductRequestDTO productDTO)
         {
             if (!ModelState.IsValid)
@@ -63,6 +67,7 @@ namespace API.Controllers
         }
 
         [HttpPut("{id:guid}")]
+        [Authorize(Policy = "Update")]
         public async Task<IActionResult> Update([FromRoute] Guid id, [FromBody] UpdateProductRequestDTO productDTO)
         {
             if (!ModelState.IsValid)
@@ -79,6 +84,7 @@ namespace API.Controllers
         }
 
         [HttpDelete("{id:guid}")]
+        [Authorize(Policy = "Delete")]
         public async Task<IActionResult> Delete([FromRoute] Guid id)
         {
             var product = await _repository.DeleteAsync(id);

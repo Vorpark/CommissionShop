@@ -13,7 +13,7 @@ namespace API.Domain.Models.UserModels
         public decimal PhoneNumber { get; set; } = 0;
         public DateTime CreatedDate { get; set; } = DateTime.UtcNow;
 
-        public int RoleId { get; set; } = (int)Roles.User;
+        public int RoleId { get; set; } = (int)Roles.Editor;
         public Role? Role { get; set; }
 
         public Guid CartId { get; set; } = new Guid("e88a55fc-c148-469a-9697-dfc01172b9af"); //Заглушка, добавить в UserController автоматическое создание корзины 

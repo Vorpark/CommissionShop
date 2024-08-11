@@ -19,7 +19,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "API.DAL", "API.DAL\API.DAL.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "API.Domain", "API.Domain\API.Domain.csproj", "{67F33FF3-397E-4E12-B082-7A0D8E3AADD4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "API.Infrastructure", "API.Infrastructure\API.Infrastructure.csproj", "{612C6BF2-BBAF-4A82-BA5A-B7967207133D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "API.Infrastructure", "API.Infrastructure\API.Infrastructure.csproj", "{612C6BF2-BBAF-4A82-BA5A-B7967207133D}"
 	ProjectSection(ProjectDependencies) = postProject
 		{67F33FF3-397E-4E12-B082-7A0D8E3AADD4} = {67F33FF3-397E-4E12-B082-7A0D8E3AADD4}
 	EndProjectSection

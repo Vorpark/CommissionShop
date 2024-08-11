@@ -1,5 +1,7 @@
-﻿using API.Infrastructure;
+﻿using API.Domain.Enums;
+using API.Infrastructure;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 
@@ -43,7 +45,14 @@ namespace API.Extensions
                     };
                 });
 
-            services.AddAuthorization();
+            services.AddSingleton<IAuthorizationHandler, PermissionAuthorizationHandler>();
+
+            services.AddAuthorizationBuilder()
+                .AddPolicy("Read", policy => policy.Requirements.Add(new PermissionRequirement([Permissions.Read])))
+                .AddPolicy("ReadAll", policy => policy.Requirements.Add(new PermissionRequirement([Permissions.ReadAll])))
+                .AddPolicy("Create", policy => policy.Requirements.Add(new PermissionRequirement([Permissions.Create])))
+                .AddPolicy("Update", policy => policy.Requirements.Add(new PermissionRequirement([Permissions.Update])))
+                .AddPolicy("Delete", policy => policy.Requirements.Add(new PermissionRequirement([Permissions.Delete])));
         }
     }
 }
