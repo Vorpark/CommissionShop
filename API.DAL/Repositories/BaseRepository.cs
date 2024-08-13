@@ -9,7 +9,7 @@ namespace API.DAL.Repositories
     abstract public class BaseRepository<T> : IBaseRepository<T>
         where T : BaseModel<Guid>
     {
-        private readonly ApplicationDbContext _db;
+        protected readonly ApplicationDbContext _db;
         protected readonly DbSet<T> dbSet;
 
         public BaseRepository(ApplicationDbContext db)

@@ -19,10 +19,11 @@ namespace API.DAL.Repositories
         {
             var user = await dbSet.AsNoTracking().FirstOrDefaultAsync(x => x.Id == userId);
             
-            var permissions = user!.RoleId.ToString().Select(x => (Permissions)int.Parse(x.ToString())).ToHashSet(); //Возвращает только одно разрешение, пофиксить
+            var permissions = await _db.RolePermissions.Where(x => x.RoleId == user!.RoleId).Select(x => x.PermissionId).ToListAsync();
 
-            return permissions;
+            return permissions.Select(x => (Permissions)x).ToHashSet();
         }
+
         //TODO: Update
     }
 }
