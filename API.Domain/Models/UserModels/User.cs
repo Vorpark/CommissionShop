@@ -13,10 +13,10 @@ namespace API.Domain.Models.UserModels
         public decimal PhoneNumber { get; set; } = 0;
         public DateTime CreatedDate { get; set; } = DateTime.UtcNow;
 
-        public int RoleId { get; set; } = (int)Roles.Editor;
+        public int RoleId { get; set; } = (int)Roles.Editor; //TODO: Заглушка для проверки работоспособности куки
         public Role? Role { get; set; }
 
-        public Guid CartId { get; set; } = new Guid("e88a55fc-c148-469a-9697-dfc01172b9af"); //Заглушка, добавить в UserController автоматическое создание корзины 
+        public Guid CartId { get; set; } = new Guid("e88a55fc-c148-469a-9697-dfc01172b9af"); //TODO: Заглушка, добавить в UserController автоматическое создание корзины 
         public Cart? Cart { get; set; }
     }
 }

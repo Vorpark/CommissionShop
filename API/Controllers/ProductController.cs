@@ -83,6 +83,20 @@ namespace API.Controllers
             return Ok(updatedProductDTO);
         }
 
+        [HttpPut("{id:guid}-{isSold:bool}")]
+        [Authorize(Policy = "Update")]
+        public async Task<IActionResult> UpdateIsSold([FromRoute] Guid id, bool isSold)
+        {
+            var product = await _repository.UpdateIsSoldAsync(id, isSold);
+
+            if (product == null)
+                return NotFound();
+
+            var updatedProductDTO = product.ToProductResponseDTO();
+
+            return Ok(updatedProductDTO);
+        }
+
         [HttpDelete("{id:guid}")]
         [Authorize(Policy = "Delete")]
         public async Task<IActionResult> Delete([FromRoute] Guid id)

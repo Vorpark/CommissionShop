@@ -33,6 +33,19 @@ namespace API.DAL.Repositories
             return product;
         }
 
+        public async Task<Product?> UpdateIsSoldAsync(Guid id, bool isSold)
+        {
+            var product = await dbSet.FirstOrDefaultAsync(x => x.Id == id);
+
+            if (product == null)
+                return null;
+
+            product.IsSold = isSold;
+
+            await SaveAsync();
+            return product;
+        }
+
         public async Task<IEnumerable<Product>> GetPageByQueryAsync(ProductQueryObject query)
         {
             var products = dbSet.AsNoTracking().AsQueryable().Where(x => x.IsSold == false);
