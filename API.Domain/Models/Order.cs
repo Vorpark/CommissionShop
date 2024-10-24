@@ -9,6 +9,6 @@ namespace API.Domain.Models
 
         public Guid UserId { get; set; }
 
-        public ICollection<OrderDetails> OrderDetails { get; set; } = [];
+        public ICollection<OrderDetail> OrderDetails { get; set; } = [];
     }
 }

@@ -1,4 +1,5 @@
-﻿using API.Domain.Enums;
+﻿using API.DAL.Configurations;
+using API.Domain.Enums;
 using API.Domain.Models;
 using API.Domain.Models.UserModels;
 using Microsoft.EntityFrameworkCore;
@@ -18,7 +19,7 @@ namespace API.DAL.Data
         public DbSet<Category> Categories { get; set; }
         public DbSet<SubCategory> SubCategories { get; set; }
         public DbSet<Order> Orders { get; set; }
-        public DbSet<OrderDetails> OrderDetails { get; set; }
+        public DbSet<OrderDetail> OrderDetails { get; set; }
         public DbSet<Cart> Carts { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -26,50 +27,18 @@ namespace API.DAL.Data
             //TODO: Распределить все это по конфигам
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<City>().HasData(
-                new City() { Id = 1, Name = "Набережные Челны" }
-            );
-
-            modelBuilder.Entity<Brand>().HasData(
-                new Brand() { Id = 1, Name = "Android" }
-            );
-
-            modelBuilder.Entity<Category>().HasData(
-                new Category() { Id = 1 }
-            );
-
-            modelBuilder.Entity<SubCategory>().HasData(
-                new SubCategory() { Id = 1, CategoryId = 1 }
-            );
-
-            modelBuilder.Entity<Product>().HasData(
-                new Product() { Id = Guid.NewGuid(), Name = "123", Price = 12455.01M, Description = "WTF", CityId = 1, BrandId = 1, CategoryId = 1, SubCategoryId = 1 }
-            );
-
-            modelBuilder.Entity<Cart>().HasData(
-                new Cart() { Id = Guid.NewGuid() }
-            );
-
-            modelBuilder.Entity<Permission>().HasData(
-                Enum.GetValues<Permissions>().Select(x =>
-                new Permission { Id = (int)x, Name = x.ToString() }));
-
-            modelBuilder.Entity<Role>().HasData(
-                Enum.GetValues<Roles>().Select(x =>
-                new Role { Id = (int)x, Name = x.ToString() }));
-
-            modelBuilder.Entity<RolePermission>()
-                .HasKey(t => new { t.RoleId, t.PermissionId });
-
-            modelBuilder.Entity<RolePermission>().HasData(
-                authOptions.Value.RolePermissions
-                .SelectMany(rp => rp.Permissions
-                    .Select(p => new RolePermission
-                    {
-                        RoleId = (int)Enum.Parse<Roles>(rp.Role),
-                        PermissionId = (int)Enum.Parse<Permissions>(p)
-                    })).ToArray()
-                );
+            modelBuilder.ApplyConfiguration(new UserConfiguration());
+            modelBuilder.ApplyConfiguration(new RoleConfiguration());
+            modelBuilder.ApplyConfiguration(new PermissionConfiguration());
+            modelBuilder.ApplyConfiguration(new RolePermissionConfiguration(authOptions));
+            modelBuilder.ApplyConfiguration(new ProductConfiguration());
+            modelBuilder.ApplyConfiguration(new CityConfiguration());
+            modelBuilder.ApplyConfiguration(new BrandConfiguration());
+            modelBuilder.ApplyConfiguration(new CategoryConfiguration());
+            modelBuilder.ApplyConfiguration(new SubCategoryConfiguration());
+            modelBuilder.ApplyConfiguration(new OrderConfiguration());
+            modelBuilder.ApplyConfiguration(new OrderDetailConfiguration());
+            modelBuilder.ApplyConfiguration(new CartConfiguration());
         }
     }
 }

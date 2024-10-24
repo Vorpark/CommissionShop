@@ -28,7 +28,7 @@ namespace API.Domain.Models
         public int SubCategoryId { get; set; }
         public SubCategory? SubCategory { get; set; }
 
-        public OrderDetails? OrderDetails { get; set; }
+        public OrderDetail? OrderDetails { get; set; }
 
         public ICollection<Cart> Carts { get; set; } = [];
     }
