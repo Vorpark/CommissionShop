@@ -1,5 +1,4 @@
 ﻿using API.DAL.Repositories.IRepository;
-using API.Domain.Enums;
 using API.Domain.Models.DTOs.Product;
 using API.Domain.QueryObjects;
 using API.Mappers;
@@ -85,7 +84,7 @@ namespace API.Controllers
 
         [HttpPut("{id:guid}-{isSold:bool}")]
         [Authorize(Policy = "Update")]
-        public async Task<IActionResult> UpdateIsSold([FromRoute] Guid id, bool isSold)
+        public async Task<IActionResult> UpdateIsSold([FromRoute] Guid id, [FromRoute] bool isSold)
         {
             var product = await _repository.UpdateIsSoldAsync(id, isSold);
 

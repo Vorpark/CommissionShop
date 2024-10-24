@@ -1,8 +1,6 @@
 ﻿using API.Domain.Models;
-using API.Domain.Models.UserModels;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System.Reflection.Emit;
 
 namespace API.DAL.Configurations
 {

@@ -1,4 +1,4 @@
-﻿ using API.DAL.Repositories.IRepository;
+﻿using API.DAL.Repositories.IRepository;
 using API.Domain.Models.DTOs.User;
 using API.Infrastructure.Interfaces;
 using API.Mappers;
@@ -52,6 +52,18 @@ namespace API.Controllers
 
             var token = _jwtProvider.GenerateToken(user);
             HttpContext.Response.Cookies.Append("login_info", token);
+
+            return Ok();
+        }
+
+        [HttpPost("changeRole/{id:guid}-{roleId:int}")]
+        //TODO: ExtraRight
+        public async Task<IActionResult> ChangeRole([FromRoute] Guid id, [FromRoute] int roleId)
+        {
+            var result = await _repository.ChangeRoleAsync(id, roleId);
+
+            if (result == false)
+                return NotFound();
 
             return Ok();
         }

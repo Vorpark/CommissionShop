@@ -1,5 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-using API.Domain.Models.UserModels;
+﻿using API.Domain.Models.UserModels;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace API.Domain.Models
 {

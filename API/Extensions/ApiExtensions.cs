@@ -14,7 +14,7 @@ namespace API.Extensions
             var jwtOptions = configuration.GetSection(nameof(JwtOptions)).Get<JwtOptions>();
 
             services
-                .AddAuthentication(options => 
+                .AddAuthentication(options =>
                 {
                     options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
                     options.DefaultSignInScheme = JwtBearerDefaults.AuthenticationScheme;

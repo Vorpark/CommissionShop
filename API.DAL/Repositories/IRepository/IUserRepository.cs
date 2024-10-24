@@ -7,6 +7,6 @@ namespace API.DAL.Repositories.IRepository
     {
         Task<User?> GetByEmailAsync(string email);
         Task<HashSet<Permissions>> GetUserPermissionsByGuidAsync(Guid userId);
-        //TODO: Update
+        Task<bool> ChangeRoleAsync(Guid userId, int roleId);
     }
 }

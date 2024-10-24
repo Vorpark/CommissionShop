@@ -19,7 +19,7 @@ namespace API.Infrastructure
 
             using var scope = _serviceScopeFactory.CreateScope();
 
-            var permissionsService =  scope.ServiceProvider.GetRequiredService<IUserRepository>();
+            var permissionsService = scope.ServiceProvider.GetRequiredService<IUserRepository>();
 
             var permissions = await permissionsService.GetUserPermissionsByGuidAsync(id);
 

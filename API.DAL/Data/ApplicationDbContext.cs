@@ -1,5 +1,4 @@
 ﻿using API.DAL.Configurations;
-using API.Domain.Enums;
 using API.Domain.Models;
 using API.Domain.Models.UserModels;
 using Microsoft.EntityFrameworkCore;
@@ -24,7 +23,6 @@ namespace API.DAL.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            //TODO: Распределить все это по конфигам
             base.OnModelCreating(modelBuilder);
 
             modelBuilder.ApplyConfiguration(new UserConfiguration());
