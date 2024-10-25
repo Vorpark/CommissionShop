@@ -1,7 +1,7 @@
 ﻿using API.DAL.Data;
 using API.DAL.Repositories.IRepository;
+using API.Domain.DTOs.Product;
 using API.Domain.Models;
-using API.Domain.Models.DTOs.Product;
 using API.Domain.QueryObjects;
 using Microsoft.EntityFrameworkCore;
 

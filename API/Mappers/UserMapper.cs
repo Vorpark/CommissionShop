@@ -1,4 +1,4 @@
-﻿using API.Domain.Models.DTOs.User;
+﻿using API.Domain.DTOs.User;
 using API.Domain.Models.UserModels;
 
 namespace API.Mappers

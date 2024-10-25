@@ -1,5 +1,5 @@
 ﻿using API.DAL.Repositories.IRepository;
-using API.Domain.Models.DTOs.Product;
+using API.Domain.DTOs.Product;
 using API.Domain.QueryObjects;
 using API.Mappers;
 using Microsoft.AspNetCore.Authorization;

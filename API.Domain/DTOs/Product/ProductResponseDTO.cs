@@ -1,30 +1,20 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace API.Domain.Models.DTOs.Product
+﻿namespace API.Domain.DTOs.Product
 {
-    public class UpdateProductRequestDTO
+    public class ProductResponseDTO : BaseModelResponseDTO
     {
-        [Required]
         public string Name { get; set; }
-        [Required]
+        public bool IsSold { get; set; }
         public decimal Price { get; set; }
-        [Required]
         public bool HasDiscount { get; set; }
-        [Required]
         public decimal DiscountPrice { get; set; }
-        [Required]
         public int DiscountPercent { get; set; }
-        [Required]
         public string Description { get; set; }
-        [Required]
         public string ImageUrl { get; set; }
-        [Required]
+        public DateTime CreatedDate { get; set; }
+        public DateTime UpdatedDate { get; set; }
         public int CityId { get; set; }
-        [Required]
         public int BrandId { get; set; }
-        [Required]
         public int CategoryId { get; set; }
-        [Required]
         public int SubCategoryId { get; set; }
     }
 }

@@ -1,5 +1,5 @@
-﻿using API.Domain.Models;
-using API.Domain.Models.DTOs.Product;
+﻿using API.Domain.DTOs.Product;
+using API.Domain.Models;
 using API.Domain.QueryObjects;
 
 namespace API.DAL.Repositories.IRepository

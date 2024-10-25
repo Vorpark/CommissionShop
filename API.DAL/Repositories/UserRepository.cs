@@ -33,7 +33,7 @@ namespace API.DAL.Repositories
 
             if (Enum.IsDefined(typeof(Roles), roleId))
                 user.RoleId = roleId;
-            else 
+            else
                 return false;
 
             await SaveAsync();

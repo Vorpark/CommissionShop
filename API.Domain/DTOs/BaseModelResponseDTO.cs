@@ -1,4 +1,4 @@
-﻿namespace API.Domain.Models.DTOs
+﻿namespace API.Domain.DTOs
 {
     public abstract class BaseModelResponseDTO
     {
