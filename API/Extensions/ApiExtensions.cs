@@ -52,7 +52,8 @@ namespace API.Extensions
                 .AddPolicy("ReadAll", policy => policy.Requirements.Add(new PermissionRequirement([Permissions.ReadAll])))
                 .AddPolicy("Create", policy => policy.Requirements.Add(new PermissionRequirement([Permissions.Create])))
                 .AddPolicy("Update", policy => policy.Requirements.Add(new PermissionRequirement([Permissions.Update])))
-                .AddPolicy("Delete", policy => policy.Requirements.Add(new PermissionRequirement([Permissions.Delete])));
+                .AddPolicy("Delete", policy => policy.Requirements.Add(new PermissionRequirement([Permissions.Delete])))
+                .AddPolicy("ExtraPermission", policy => policy.Requirements.Add(new PermissionRequirement([Permissions.ExtraPermission])));
         }
     }
 }

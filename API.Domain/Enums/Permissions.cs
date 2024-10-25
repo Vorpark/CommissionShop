@@ -6,6 +6,7 @@
         ReadAll = 2,
         Create = 3,
         Update = 4,
-        Delete = 5
+        Delete = 5,
+        ExtraPermission = 6
     }
 }

@@ -2,6 +2,7 @@
 using API.Domain.Models.DTOs.User;
 using API.Infrastructure.Interfaces;
 using API.Mappers;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
@@ -57,7 +58,7 @@ namespace API.Controllers
         }
 
         [HttpPost("changeRole/{id:guid}-{roleId:int}")]
-        //TODO: ExtraRight
+        [Authorize(Policy = "ExtraPermission")]
         public async Task<IActionResult> ChangeRole([FromRoute] Guid id, [FromRoute] int roleId)
         {
             var result = await _repository.ChangeRoleAsync(id, roleId);

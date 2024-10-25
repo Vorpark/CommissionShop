@@ -39,6 +39,7 @@ namespace API.DAL.Repositories
             await SaveAsync();
             return true;
         }
-        //TODO: UpdateAsync, ChangeRoleAsync
+
+        //TODO: UpdateAsync
     }
 }
