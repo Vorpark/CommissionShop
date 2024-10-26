@@ -1,5 +1,6 @@
 ﻿using API.DAL.Data;
 using API.DAL.Repositories.IRepository;
+using API.Domain.DTOs.User;
 using API.Domain.Enums;
 using API.Domain.Models.UserModels;
 using Microsoft.EntityFrameworkCore;
@@ -37,9 +38,23 @@ namespace API.DAL.Repositories
                 return false;
 
             await SaveAsync();
+
             return true;
         }
 
-        //TODO: UpdateAsync
+        public async Task<bool> UpdateAsync(Guid userId, UpdateUserRequestDTO userDTO)
+        {
+            var user = await dbSet.FirstOrDefaultAsync(x => x.Id == userId);
+
+            if (user == null)
+                return false;
+
+            user.FirstName = userDTO.FirstName;
+            user.PhoneNumber = userDTO.PhoneNumber;
+
+            await SaveAsync();
+
+            return true;
+        }
     }
 }

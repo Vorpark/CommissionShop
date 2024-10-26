@@ -9,9 +9,9 @@ namespace API.DAL.Repositories
 {
     public class ProductRepository(ApplicationDbContext db) : BaseRepository<Product>(db), IProductRepository
     {
-        public async Task<Product?> UpdateAsync(Guid id, UpdateProductRequestDTO productDTO)
+        public async Task<Product?> UpdateAsync(Guid productId, UpdateProductRequestDTO productDTO)
         {
-            var product = await dbSet.FirstOrDefaultAsync(x => x.Id == id);
+            var product = await dbSet.FirstOrDefaultAsync(x => x.Id == productId);
 
             if (product == null)
                 return null;
@@ -30,12 +30,13 @@ namespace API.DAL.Repositories
             product.SubCategoryId = productDTO.SubCategoryId;
 
             await SaveAsync();
+
             return product;
         }
 
-        public async Task<Product?> UpdateIsSoldAsync(Guid id, bool isSold)
+        public async Task<Product?> UpdateIsSoldAsync(Guid productId, bool isSold)
         {
-            var product = await dbSet.FirstOrDefaultAsync(x => x.Id == id);
+            var product = await dbSet.FirstOrDefaultAsync(x => x.Id == productId);
 
             if (product == null)
                 return null;
@@ -43,6 +44,7 @@ namespace API.DAL.Repositories
             product.IsSold = isSold;
 
             await SaveAsync();
+
             return product;
         }
 

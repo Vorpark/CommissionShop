@@ -57,11 +57,32 @@ namespace API.Controllers
             return Ok();
         }
 
-        [HttpPost("changeRole/{id:guid}-{roleId:int}")]
+        [HttpPut("{id:guid}-{roleId:int}")]
         [Authorize(Policy = "ExtraPermission")]
         public async Task<IActionResult> ChangeRole([FromRoute] Guid id, [FromRoute] int roleId)
         {
             var result = await _repository.ChangeRoleAsync(id, roleId);
+
+            if (result == false)
+                return NotFound();
+
+            return Ok();
+        }
+
+        [HttpPut]
+        [Authorize]
+        public async Task<IActionResult> Update([FromBody] UpdateUserRequestDTO userDTO) //TODO: Отрефакторить этот небезопасный метод (?)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            if (Guid.TryParse(User.Identities.First()?.Claims.First()?.Value, out var userId) == false)
+            {
+                ModelState.AddModelError("Ошибка", "Не получилось получить id пользователя");
+                return BadRequest(ModelState);
+            }
+
+            var result = await _repository.UpdateAsync(userId, userDTO);
 
             if (result == false)
                 return NotFound();

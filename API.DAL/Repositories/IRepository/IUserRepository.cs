@@ -1,4 +1,5 @@
-﻿using API.Domain.Enums;
+﻿using API.Domain.DTOs.User;
+using API.Domain.Enums;
 using API.Domain.Models.UserModels;
 
 namespace API.DAL.Repositories.IRepository
@@ -8,5 +9,6 @@ namespace API.DAL.Repositories.IRepository
         Task<User?> GetByEmailAsync(string email);
         Task<HashSet<Permissions>> GetUserPermissionsByGuidAsync(Guid userId);
         Task<bool> ChangeRoleAsync(Guid userId, int roleId);
+        Task<bool> UpdateAsync(Guid userId, UpdateUserRequestDTO userDTO);
     }
 }
